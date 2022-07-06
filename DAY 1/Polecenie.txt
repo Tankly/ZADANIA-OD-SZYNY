@@ -1,0 +1,15 @@
+Napisz stronę internetową która będzie zawierać formularz: imię, nazwisko, wiek, email, opis oraz płeć (do wyboru z selecta). Po kliknięciu guzika "zapisz" pobierz wszystkie wartości z pól, sprawdź czy są poprawne wykorzystaj regexy:
+ - jeśli nie: wyświetl alert
+ - jeśli tak: wyświetl dane pod formularzem
+Trening przed zadaniem:
+https://regexone.com/
+ Przydatne linki:
+ https://developer.mozilla.org/en-US/docs/Web/API/Document/getElementById
+ https://www.javascript-coder.com/javascript-form/javascript-get-form/
+ https://www.w3schools.com/js/js_functions.asp
+ https://www.w3schools.com/js/js_htmldom_eventlistener.asp
+ https://developer.mozilla.org/en-US/docs/Web/API/Node/appendChild
+ https://www.w3schools.com/jsref/met_document_createelement.asp
+ https://www.w3schools.com/jsref/met_win_alert.asp
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions
+https://regex101.com/
