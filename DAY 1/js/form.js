@@ -27,7 +27,7 @@ function getFormData(){
         alertMsg+= "Email ";
     }
     if(details==''){
-        details="brak"
+        details="brak";
     }
     if(gender=='default'){
         valid=false;
@@ -38,7 +38,6 @@ function getFormData(){
         output.innerHTML = "Imię: "+name+"<br>Nazwisko: "+surname+"<br>Wiek: "+age+"<br>Email: "+email+"<br>Opis: "+details+"<br>Płeć: "+gender;
     }
     else{
-        alert(alertMsg);
+        fireAlert(alertMsg);
     }
-
 }

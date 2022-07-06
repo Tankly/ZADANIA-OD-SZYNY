@@ -4,31 +4,37 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="./css/formStyle.css">
+    <link rel="stylesheet" href="./css/customAlertStyle.css">
     <title>Zaadanie nr 1: Formularz</title>
 </head>
 <body>
-    <form name="userForm" id="userForm">
-        <label for="name">Imię:</label>
-        <input type="text" id="name" name="name">
-        <label for="surname">Nazwisko:</label>
-        <input type="text" id="surname" name="surname">
-        <label for="age">Wiek:</label>
-        <input type="number" id="age" name="age">
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email">
-        <label for="details">Opis:</label>
-        <textarea id="details" name="details" rows="4" cols="50" placeholder="Dodaj opis"></textarea>
-        <label for="gender">Płeć:</label>
-        <select id="gender" name="gender">
-            <option value="default" selected disabled hidden>Wybierz płeć</option>
-            <option value="Mężczyzna">Mężczyzna</option>
-            <option value="Kobieta">Kobieta</option>
-        </select>
-        <input type="button" value="zapisz" onclick="return getFormData()">
-    </form>
-    <div id="output">
-    </div>
+    <main>
+        <div class="form">
+            <form name="userForm" id="userForm">
+                <label for="name">Imię:</label>
+                <input type="text" id="name" name="name">
+                <label for="surname">Nazwisko:</label>
+                <input type="text" id="surname" name="surname">
+                <label for="age">Wiek:</label>
+                <input type="number" id="age" name="age">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email">
+                <label for="details">Opis:</label>
+                <textarea id="details" name="details" rows="4" cols="50" placeholder="Dodaj opis"></textarea>
+                <label for="gender">Płeć:</label>
+                <select id="gender" name="gender">
+                    <option value="default" selected disabled hidden>Wybierz płeć</option>
+                    <option value="Mężczyzna">Mężczyzna</option>
+                    <option value="Kobieta">Kobieta</option>
+                </select>
+                <input type="button" value="zapisz" onclick="return getFormData()">
+            </form>
+        </div>
+        <div id="output">
+        </div>
+    </main>
 </body>
-<script src="./main.js" ></script>
+<script src="./js/customAlert.js" ></script>
+<script src="./js/form.js" ></script>
 </html>

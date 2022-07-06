@@ -1,0 +1,1 @@
+Zaimplementuj funkcje fireAlert() która jako argument przyjmuje msg. Funkcja ta ma zastapic aktualny domyślny alert z przeglądarki. Ma wyglądać podobnie jak: https://sweetalert2.github.io/
