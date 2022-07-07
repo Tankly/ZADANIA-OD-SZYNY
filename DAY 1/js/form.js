@@ -4,7 +4,8 @@ const handlePesel = (e) =>  {
         let birthDate = document.getElementById('birthDate');
         let birthMonth = 0;
         let birthDay = 0;
-        let birthYear = 1900 + parseInt(pesel[0]*10)+parseInt(pesel[1]);
+        // let birthYear = 1900 + parseInt(pesel[0]*10)+parseInt(pesel[1]);
+        let birthYear = 1900 + parseInt(pesel.slice(0,2));
         if (pesel[2]>=2 && pesel[2]<8){
             birthYear+=Math.floor(pesel[2]/2)*100;
         }
@@ -13,13 +14,12 @@ const handlePesel = (e) =>  {
         }
 
         birthMonth = parseInt((pesel[2]%2)*10)+parseInt(pesel[3]);
+        // birthMonth = parseInt(pesel.slice(2,4));
         if(birthMonth < 10){
-            birthMonth = '0' + birthMonth;
+            birthMonth = addZero(birthMonth);
         }
-        birthDay = parseInt(pesel[4]*10)+parseInt(pesel[5]);
-        if(birthDay < 10){
-            birthDay = '0' + birthDay;
-        }
+        // birthDay = parseInt(pesel[4]*10)+parseInt(pesel[5]);
+        birthDay = parseInt(pesel.slice(4,6));
         birthDate.value = `${birthYear}-${birthMonth}-${birthDay}`;
         age = document.getElementById('age');
         let calculatedAge = new Date(new Date() - new Date(birthDate.value)).getFullYear() - 1970;
@@ -60,6 +60,8 @@ const peselValidation = (value) => {
 }
 
 const isEven = (num) => num % 2 === 0;
+
+const addZero = (num) => num = '0' + num;
 
 function getFormData(){
     const regForEmail = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
