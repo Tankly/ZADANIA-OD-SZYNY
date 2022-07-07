@@ -1,16 +1,18 @@
+
+.form-item{
+	display: flex;
+	flex-direction: column;
+}
 .form{
 	display: flex;
 	justify-content: center;
 }
 form{
-	max-width: 500px;
+	width: 30%;
 	padding: 20px 12px 10px 20px;
 	font: 13px Arial, Helvetica, sans-serif;
 }
-form label{
-	display: block;
-	margin: 0px 0px 15px 0px;
-}
+
 form input[type=button]{
 	border: none;
 	padding: 8px 15px 8px 15px;

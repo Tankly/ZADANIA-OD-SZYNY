@@ -6,43 +6,47 @@ function fireAlert(alertMsg){
     if (isAlertDivCreated) {
         return;
     }
-
-    let body = document.querySelector('body');
+    //@NOTE document.querySelector('body') -> document.body
+    let body = document.body;
     let divForAlertContainer = document.createElement('div');
     let alertContainer = body.appendChild(divForAlertContainer);
     
     alertContainer.id = 'alertContainer';
-    alertContainer.className = 'alertContainer';
+    // alertContainer.className = 'alertContainer';
 
     let divForAlertBox = document.createElement('div');
     let alertBox = alertContainer.appendChild(divForAlertBox);
 
-    alertBox.className = 'alertBox';
+    alertBox.id = 'alertBox';
 
-    alertBox.style.top = document.documentElement.scrollTop + "px";
-    alertBox.style.left = (document.documentElement.scrollWidth - alertBox.offsetWidth) / 2 + "px";
+    // alertBox.style.top = document.documentElement.scrollTop + "px";
+    // alertBox.style.left = (document.documentElement.scrollWidth - alertBox.offsetWidth) / 2 + "px";
 
+    //@NOTE INNERTEXT TEXTCONTENT
+    // let alertTitleText = document.createTextNode(alertTitle);
     let alertHeaderTag =  document.createElement('h1');
-    let alertTitleText = document.createTextNode(alertTitle);
     let alertTitleDone = alertBox.appendChild(alertHeaderTag);
-    alertTitleDone.appendChild(alertTitleText);
+    alertTitleDone.innerText=alertTitle;
 
     let alertPTag = document.createElement('p');
     let alertPTextContainer = alertBox.appendChild(alertPTag);
     alertPTextContainer.textContent = alertMsg;
 
     let closeButtonTag = document.createElement('button');
-    let closeButtonText = document.createTextNode(alertButton);
     let closeButton = alertBox.appendChild(closeButtonTag);
-    closeButton.appendChild(closeButtonText);
-    closeButton.className = 'closeButton';
+    closeButton.innerText = alertButton;
+    // closeButton.appendChild(closeButtonText);
+    // closeButtonTag -> closeButton | closeButton.innerText = alertButton
+    closeButton.id = 'closeButton';
 
     closeButton.addEventListener('click', () => {
-        removeAlert();
+        divForAlertContainer.remove();
+        // removeAlert();
     }, false);
 }
-function removeAlert(){
-    let body = document.querySelector('body');
-    let alertContainer = document.getElementById('alertContainer');
-    body.removeChild(alertContainer);
-}
+// function removeAlert(){
+//     let body = document.querySelector('body');
+//     let alertContainer = document.getElementById('alertContainer');
+//     //@NOTE alertContainer.remove()
+//     body.removeChild(alertContainer);
+// }

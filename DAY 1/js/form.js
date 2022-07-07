@@ -1,41 +1,42 @@
+const defaultValidation = (value) => {
+    return /.+/.test(value)
+}
+
+
 function getFormData(){
-    valid = true;
-    let FormData = document.forms['userForm'];
-    let name = FormData['name'].value;
-    let surname = FormData['surname'].value;
-    let age = FormData['age'].value;
-    let email = FormData['email'].value;
-    let details = FormData['details'].value;
-    let gender = FormData['gender'].value;
-    let alertMsg="Formularz źle wpełniony sprawdź pole: ";
     const regForEmail = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
-    const checkEmail = regForEmail.test(email)
-    if(name==''){
-        valid=false;
-        alertMsg+= "Imię ";
+    let inputs = {
+        name: {label: 'Imię', validationF: defaultValidation},
+        surname: {label: 'Nazwisko', validationF: defaultValidation},
+        age: {label: 'Wiek', validationF: (value) => {
+            return value > 0 && /.+/.test(value)
+        }},
+        email: {label: 'Email', validationF: (value) => {
+            return regForEmail.test(value)
+        }},
+        details: {label: 'Opis', validationF: defaultValidation},
+        gender: {label: 'Płeć', validationF: defaultValidation},
     }
-    if(surname==''){
-        valid=false;
-        alertMsg+= "Nazwisko ";
-    }
-    if(age<=0){
-        valid=false;
-        alertMsg+= "Wiek ";
-    }
-    if(!checkEmail){
-        valid=false;
-        alertMsg+= "Email ";
-    }
-    if(details==''){
-        details="brak";
-    }
-    if(gender=='default'){
-        valid=false;
-        alertMsg+= "Płeć ";
+    const form = document.forms['userForm']
+    let alertMsg="Formularz źle wpełniony sprawdź pole: ";
+    let output = '';
+    let valid = true;
+    for(inputName in inputs) {
+        let value = form[inputName].value
+        let inputSettings = inputs[inputName]
+        output+=`${inputSettings.label} : ${value}<br/>`
+        if(!inputSettings.validationF(value)) {
+            alertMsg+= inputSettings.label+' ';
+            valid = false
+        }
     }
     if(valid){
-        let output=document.getElementById("output");
-        output.innerHTML = "Imię: "+name+"<br>Nazwisko: "+surname+"<br>Wiek: "+age+"<br>Email: "+email+"<br>Opis: "+details+"<br>Płeć: "+gender;
+        // let result=document.getElementById("output");
+        let body = document.body;
+        let outputDiv = document.createElement('div');
+        outputDiv.id='output';
+        body.appendChild(outputDiv).innerHTML=output;
+        // result.innerHTML = output
     }
     else{
         fireAlert(alertMsg);
