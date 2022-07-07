@@ -31,11 +31,16 @@ function getFormData(){
         }
     }
     if(valid){
+        if(document.getElementById('output')){
+            document.getElementById('output').remove();
+        }
         // let result=document.getElementById("output");
-        let body = document.body;
+        let body = document.querySelector('main');
+        let outputDivContainer = document.createElement('div');
+        body.appendChild(outputDivContainer);
+        outputDivContainer.id='output';
         let outputDiv = document.createElement('div');
-        outputDiv.id='output';
-        body.appendChild(outputDiv).innerHTML=output;
+        outputDivContainer.appendChild(outputDiv).innerHTML=output;
         // result.innerHTML = output
     }
     else{
