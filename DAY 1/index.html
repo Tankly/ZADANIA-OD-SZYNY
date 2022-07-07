@@ -23,8 +23,16 @@
                     <input type="text" id="surname" name="surname">
                 </div>
                 <div class="form-item">
+                    <label for="pesel">PESEL:</label>
+                    <input type="text" id="pesel" name="pesel" maxlength="11">
+                </div>
+                <div class="form-item">
+                    <label for="birthDate">Data urodzenia:</label>
+                    <input type="date" id="birthDate" name="birthDate" disabled>
+                </div>
+                <div class="form-item">
                     <label for="age">Wiek:</label>
-                    <input type="number" id="age" name="age">
+                    <input type="number" id="age" name="age" disabled>
                 </div>
                 <div class="form-item">
                     <label for="email">Email:</label>
@@ -36,7 +44,7 @@
                 </div>
                 <div class="form-item">
                     <label for="gender">Płeć:</label>   
-                    <select id="gender" name="gender">
+                    <select id="gender" name="gender" disabled>
                         <option value="default" selected disabled hidden>Wybierz płeć</option>
                         <option value="Mężczyzna">Mężczyzna</option>
                         <option value="Kobieta">Kobieta</option>

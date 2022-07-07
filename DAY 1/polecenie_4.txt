@@ -1,0 +1,7 @@
+Dodaj pesel oraz datę urodzenia. Data urodzenia, płeć i wiek ustaw na disable. Ustawiaj datę urodzenia, płeć i wiek w zależności od peselu. Dodaj walidację peselu po sumie kontrolnej.
+https://obywatel.gov.pl/pl/dokumenty-i-dane-osobowe/czym-jest-numer-pesel#:~:text=Numer%20PESEL%20to%20jedenastocyfrowy%20symbol,oznaczenie%20p%C5%82ci%20oraz%20liczb%C4%99%20kontroln%C4%85.
+
+
+
+
+

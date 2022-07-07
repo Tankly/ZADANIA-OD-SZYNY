@@ -1,1 +1,4 @@
-Zaimplementuj funkcje fireAlert() która jako argument przyjmuje msg. Funkcja ta ma zastapic aktualny domyślny alert z przeglądarki. Ma wyglądać podobnie jak: https://sweetalert2.github.io/
+Dodaj podstawowe stylowanie strony. Użyj do tego flexa.
+ttps://css-tricks.com/snippets/css/a-guide-to-flexbox/
+ Do wykonania:
+ https://flexboxfroggy.com/#pl
