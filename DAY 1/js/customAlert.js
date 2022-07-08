@@ -1,4 +1,4 @@
-function fireAlert(alertMsg){
+export function fireAlert(alertMsg){
     const alertButton = 'OK';
     const alertTitle = 'Błąd';
     
@@ -44,6 +44,7 @@ function fireAlert(alertMsg){
         // removeAlert();
     }, false);
 }
+
 // function removeAlert(){
 //     let body = document.querySelector('body');
 //     let alertContainer = document.getElementById('alertContainer');

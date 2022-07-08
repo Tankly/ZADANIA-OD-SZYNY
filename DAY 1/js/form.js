@@ -1,3 +1,5 @@
+import {fireAlert} from './customAlert.js';
+
 const defaultValidation = (value) => {
     return /.+/.test(value)
 }
@@ -14,7 +16,7 @@ const peselValidation = (value) => {
             checkSum += tempSum;
         }
         checkSum = checkSum % 10;
-        finalCheck = 10 - checkSum;
+        let finalCheck = 10 - checkSum;
         if(finalCheck == value[10]){
             return true;
         }
@@ -60,12 +62,12 @@ const handlePesel = (e) =>  {
             birthMonth = addZero(birthMonth);
         }
         // birthDay = parseInt(pesel[4]*10)+parseInt(pesel[5]);
-        birthDay = parseInt(pesel.slice(4,6));
+        birthDay = pesel.slice(4,6);
         birthDate.value = `${birthYear}-${birthMonth}-${birthDay}`;
-        age = document.getElementById('age');
+        let age = document.getElementById('age');
         let calculatedAge = new Date(new Date() - new Date(birthDate.value)).getFullYear() - 1970;
         age.value = calculatedAge;
-        gender = document.getElementById('gender');
+        let gender = document.getElementById('gender');
         if(isEven(pesel[9])){
             gender.value = 'Kobieta';
         }
@@ -88,6 +90,8 @@ const handleInputValidation = (e) => {
 
 document.getElementById('pesel').addEventListener('input', handlePesel)
 
+document.getElementById('sendForm').addEventListener('click', getFormData)
+
 //@NOTE "obrzydliwe"
 // const inputsForLiveValidation = document.querySelectorAll('input:not(input[type="button"])')
 
@@ -95,7 +99,7 @@ document.getElementById('pesel').addEventListener('input', handlePesel)
 //     inputsForLiveValidation[i].addEventListener('focusout', handleInputValidation);
 // }
 
-for(inputName in inputs){
+for(let inputName in inputs){
     form[inputName].addEventListener('focusout', handleInputValidation);
     form[inputName].addEventListener('input', handleInputValidation);
 }
@@ -104,11 +108,12 @@ const isEven = (num) => num % 2 === 0;
 
 const addZero = (num) => num = '0' + num;
 
-function getFormData(){
+function getFormData(e){
+    e.preventDefault();
     let alertMsg="Formularz źle wpełniony sprawdź pole: ";
     let output = '';
     let valid = true;
-    for(inputName in inputs) {
+    for(let inputName in inputs) {
         let value = form[inputName].value;
         let inputSettings = inputs[inputName];
         output+=`${inputSettings.label} : ${value}<br/>`;

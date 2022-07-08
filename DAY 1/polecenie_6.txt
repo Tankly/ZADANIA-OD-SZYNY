@@ -1,0 +1,4 @@
+Zainstaluj node na swoim komponterze a następnie zainicjalizuj package.jsona (npm init). Zainstaluj paczkę parcel służącą do hostowania twojej aplikacji. Rozdziel kod na osobne moduły.
+https://levelup.gitconnected.com/set-up-and-run-a-simple-node-server-project-38b403a3dc09 (do kroku 4 włącznie)
+https://pl.parceljs.org/getting_started.html
+https://www.geeksforgeeks.org/es6-import-and-export/#:~:text=With%20the%20help%20of%20ES6,more%20members%20in%20a%20module.

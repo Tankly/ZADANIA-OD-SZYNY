@@ -16,7 +16,7 @@ form{
     gap: 10px;
 }
 
-form input[type=button]{
+form > button{
 	border: none;
 	padding: 8px 15px 8px 15px;
 	background: #FF8500;
@@ -28,7 +28,7 @@ form input[type=button]{
 	-webkit-border-radius: 3px;
 	-moz-border-radius: 3px;
 }
-form input[type=button]:hover{
+form > button:hover{
 	background: #EA7B00;
 	color: #fff;
 }

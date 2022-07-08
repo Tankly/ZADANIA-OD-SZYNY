@@ -1,0 +1,5 @@
+Utwórz navbar po lewej stronie swojej strony i dodaj nowy plik html. Zainstaluj paczkę „axios” a następnie pobierz przy jego pomocy wszystkie posty z strony: https://jsonplaceholder.typicode.com/posts/
+Zaimplementuj filtrowanie oraz sortowanie.
+https://www.javascripttutorial.net/javascript-array-filter/#:~:text=JavaScript%20Array%20filter()%20method%20in%20detail&text=The%20filter()%20method%20creates,element%20to%20the%20callback%20function.
+
+https://files.slack.com/files-pri/TGVHC3TQT-F03NT87C22E/image.png
