@@ -34,7 +34,28 @@ const handlePesel = (e) =>  {
     }
 }
 
+const handleInputValidation = (e) => {
+    let inputValue = e.target.value;
+    if(e.target.name=='pesel' && !peselValidation(inputValue)){
+        e.target.classList.add("wrongInput");
+    }
+    else if(!defaultValidation(inputValue)){
+        e.target.classList.add("wrongInput");
+    }
+    else{
+        e.target.classList.remove("wrongInput");
+    }
+}
+
 document.getElementById('pesel').addEventListener('input', handlePesel)
+const inputsForLiveValidation = document.querySelectorAll('input:not(input[type="button"])')
+console.log(inputsForLiveValidation);
+
+for (let i=0; i<inputsForLiveValidation.length; i++){
+    inputsForLiveValidation[i].addEventListener('focusout', handleInputValidation);
+}
+
+
 
 const defaultValidation = (value) => {
     return /.+/.test(value)

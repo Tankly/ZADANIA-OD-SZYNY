@@ -42,3 +42,7 @@ form input[type=button]:hover{
 	border-radius: 3px;
 	padding: 6px;
 }
+.wrongInput{
+	border-color: red;
+	border-width: 5px;
+}

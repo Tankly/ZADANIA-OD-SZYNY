@@ -1,0 +1,2 @@
+Dodaj podświetlanie bordera inputów na czerwono gdy podane dane w inpucie są nieprawdiłowe bądź użytkownik wszedł w input a nic nie napisał. Border ma się świecić dopiero po 1 focusie.
+
