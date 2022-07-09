@@ -9,28 +9,27 @@
 }
 form{
 	width: 30%;
-	padding: 20px 12px 10px 20px;
-	font: 13px Arial, Helvetica, sans-serif;
+	padding: 20px;
 	display: flex;
     flex-direction: column;
     gap: 10px;
 }
-
+.form-item > textarea, select, input{
+	border: 2px solid #EA7B00;
+ 	border-radius: 4px;
+	font-size: 1rem;
+	padding: 0.5rem;
+	transition: 0.6s
+}
 form > button{
 	border: none;
-	padding: 8px 15px 8px 15px;
+	padding: 10px;
 	background: #FF8500;
 	color: #fff;
-	box-shadow: 1px 1px 4px #DADADA;
-	-moz-box-shadow: 1px 1px 4px #DADADA;
-	-webkit-box-shadow: 1px 1px 4px #DADADA;
 	border-radius: 3px;
-	-webkit-border-radius: 3px;
-	-moz-border-radius: 3px;
 }
 form > button:hover{
 	background: #EA7B00;
-	color: #fff;
 }
 #output{
 	display: flex;
@@ -38,11 +37,13 @@ form > button:hover{
 	margin: 10px;
 }
 #output > div{
-	border: 3px solid #EA7B00;
+
+	background-color: #F2A655;
 	border-radius: 3px;
+	color: white;
 	padding: 6px;
 }
 .wrongInput{
-	border-color: red;
-	border-width: 5px;
+	border: 2px solid red !important;
+	background-color: #F7A5A0;
 }

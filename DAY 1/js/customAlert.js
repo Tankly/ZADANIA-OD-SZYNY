@@ -1,6 +1,6 @@
 export function fireAlert(alertMsg){
     const alertButton = 'OK';
-    const alertTitle = 'Błąd';
+    const alertTitle = 'Błędnie wypełniony formularz';
     
     let isAlertDivCreated = document.getElementById("alertContainer");
     if (isAlertDivCreated) {

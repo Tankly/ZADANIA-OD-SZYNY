@@ -110,7 +110,7 @@ const addZero = (num) => num = '0' + num;
 
 function getFormData(e){
     e.preventDefault();
-    let alertMsg="Formularz źle wpełniony sprawdź pole: ";
+    let alertMsg="Sprawdź proszę pole: ";
     let output = '';
     let valid = true;
     for(let inputName in inputs) {
