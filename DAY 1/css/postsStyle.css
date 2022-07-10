@@ -1,0 +1,25 @@
+#postsMain{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top:10px;
+}
+#postsContainer{
+    display: flex;
+    flex-direction: column;
+    gap:10px;
+}
+.post{
+    border: 2px solid #EA7B00;
+ 	border-radius: 4px;
+	font-size: 1rem;
+	padding: 0.5rem;
+}
+
+.post > h2{
+    border-bottom: 2px solid #55C8F2;
+}
+
+.post > p, span, h2{
+    padding: 5px;
+}
