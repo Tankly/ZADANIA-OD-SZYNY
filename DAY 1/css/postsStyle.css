@@ -2,6 +2,8 @@
     width: 100%;
     display: flex;
     justify-content: center;
+    flex-direction: column;
+    align-items: center;
     margin-top:10px;
 }
 #postsContainer{
@@ -22,4 +24,32 @@
 
 .post > p, span, h2{
     padding: 5px;
+}
+
+#filterForm{
+    display: flex;
+    gap:10px;
+    padding: 10px;
+}
+.form-item{
+	display: flex;
+	flex-direction: column;
+}
+.form-item > textarea, select, input{
+	border: 2px solid #EA7B00;
+ 	border-radius: 4px;
+	font-size: 1rem;
+	padding: 0.5rem;
+	transition: 0.6s
+}
+form > button{
+	border: none;
+	padding: 10px;
+	background: #FF8500;
+	color: #fff;
+	border-radius: 3px;
+    min-width: 10%;
+}
+form > button:hover{
+	background: #EA7B00;
 }
