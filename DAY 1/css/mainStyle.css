@@ -5,14 +5,14 @@
 }
 
 body{
-    background-color: #FFBB73;
+    background-color: #F1F1F1;
     font-family: 'Varela Round', sans-serif;
 }
 header{
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #F2A655;
+    background-color: #FF8400;
     padding: 10px;
     color: white;
 }

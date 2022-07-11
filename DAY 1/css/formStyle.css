@@ -45,5 +45,5 @@ form > button:hover{
 }
 .wrongInput{
 	border: 2px solid red !important;
-	background-color: #F7A5A0;
+	background-color: rgba(255,0,0,0.1);
 }

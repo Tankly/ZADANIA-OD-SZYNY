@@ -2,13 +2,13 @@ import axios from 'axios';
 
 
 export async function getPostsData() {
-    try {
-        const response = await axios.get("https://jsonplaceholder.typicode.com/posts/");
-        return response.data;
-	}
-	catch (error) {
-        console.log(error);
-	}
+        try {
+                const response = await axios.get("https://jsonplaceholder.typicode.com/posts/");
+                return response.data;
+        }
+        catch (error) {
+                return []
+        }
 }
 
 //@NOTE wersja 2 
