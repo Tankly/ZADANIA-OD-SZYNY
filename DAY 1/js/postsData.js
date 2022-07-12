@@ -36,16 +36,37 @@ async function useFilter(e){
     let postsWithFilter = await getPostsData();
     let filterKeys = [];
     for(let inputName in inputs){
-        filterKeys[inputName] = form[inputName].value
-        if(filterKeys[inputName]!=''){
-            postsWithFilter = postsWithFilter.filter((e) =>{
-                // return e[filterKeys[inputName].filterKey] == passs
-            })  
+        filterKeys[inputName] = form[inputName].value;
+        if(form[inputName].type == 'text'){       
+            if(filterKeys[inputName]!=''){
+                if(isNaN(filterKeys[inputName])){
+                    postsWithFilter = postsWithFilter.filter((e) =>{
+                        return e[inputs[inputName].filterKey].search(form[inputName].value) !== -1
+                    })  
+                }
+                else{
+                    postsWithFilter = postsWithFilter.filter((e) =>{
+                        return e[inputs[inputName].filterKey] == form[inputName].value
+                    })  
+                }
+            }
+        }
+        else if(form[inputName].type = 'select-one'){
+            if (filterKeys[inputName]=='default' || filterKeys[inputName]=='asc') {
+                postsWithFilter.sort((a,b) =>{
+                    return a[0] - b[0];
+                })
+            }
+            else if(filterKeys[inputName]=='desc'){
+                postsWithFilter.reverse((a,b) =>{
+                    return a[0] - b[0];
+                })
+            }
         }
     }
-    
-    console.log(filterKeys);
-
+    for(let post in postsWithFilter){
+        buildPost(postsWithFilter[post].id, postsWithFilter[post].userId, postsWithFilter[post].title, postsWithFilter[post].body)        
+    }
 }
 
 
