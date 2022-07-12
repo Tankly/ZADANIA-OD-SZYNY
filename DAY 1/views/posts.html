@@ -20,40 +20,50 @@
             </a>
         </div>
     </nav>
-    <header>
-        <h1>Posty</h1>
-    </header>
-    <main id="postsMain">
-        <div id="filterFormContainer">
-            <form name="filterForm" id="filterForm">
-                <div class="form-item">
-                    <label for="author">Autor:</label>
-                    <input type="text" id="author" name="author">
-                </div>
-                <div class="form-item">
-                    <label for="title">Tytuł:</label>
-                    <input type="text" id="title" name="title">
-                </div>
-                <div class="form-item">
-                    <label for="content">Treść:</label>
-                    <input type="text" id="content" name="content">
-                </div>
-                <div class="form-item">
-                    <label for="sort">Sortowanie:</label>   
-                    <select id="sort" name="sort">
-                        <option value="default" selected hidden>Sposób sortowania</option>
-                        <option value="asc">Rosnąco</option>
-                        <option value="desc">Malejąco</option>
-                    </select>
-                </div>
-                <button id="filter">Filtruj</button>
-                <button id="clean">Wyczyść</button>
-            </form>
-        </div>
-        <div id="postsContainer">
-            
-        </div>
-    </main>
+    <div class="pageContent">
+        <header>
+            <h1>Posty</h1>
+        </header>
+        <main id="postsMain">
+            <div id="filterFormContainer">
+                <form name="filterForm" id="filterForm">
+                    <div class="form-item">
+                        <label for="author">Autor:</label>
+                        <input type="text" id="author" name="author">
+                    </div>
+                    <div class="form-item">
+                        <label for="title">Tytuł:</label>
+                        <input type="text" id="title" name="title">
+                    </div>
+                    <div class="form-item">
+                        <label for="content">Treść:</label>
+                        <input type="text" id="content" name="content">
+                    </div>
+                    <div class="form-item">
+                        <label for="sort">Sortowanie po:</label>   
+                        <select id="sort" name="sort">
+                            <option value="default" selected hidden>Sposób sortowania</option>
+                            <option value="asc">Rosnąco</option>
+                            <option value="desc">Malejąco</option>
+                        </select>
+                    </div>
+                    <!-- <div class="form-item">
+                        <label for="sort">Sposób sortowania:</label>   
+                        <select id="sort" name="sort">
+                            <option value="default" selected hidden>Sposób sortowania</option>
+                            <option value="asc">Rosnąco</option>
+                            <option value="desc">Malejąco</option>
+                        </select>
+                    </div> -->
+                    <button id="filter">Filtruj</button>
+                    <button id="clean">Wyczyść</button>
+                </form>
+            </div>
+            <div id="postsContainer">
+                
+            </div>
+        </main>
+    </div>
 </body>
 <script src="../js/postsData.js"  type="module"></script>
 </html>

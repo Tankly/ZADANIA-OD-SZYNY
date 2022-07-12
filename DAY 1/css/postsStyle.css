@@ -4,7 +4,7 @@
     justify-content: center;
     flex-direction: column;
     align-items: center;
-    margin-top:10px;
+    /* margin-top:10px; */
 }
 #postsContainer{
     display: flex;
@@ -28,6 +28,7 @@
 
 #filterForm{
     display: flex;
+    flex-wrap: wrap;
     gap:10px;
     padding: 10px;
 }

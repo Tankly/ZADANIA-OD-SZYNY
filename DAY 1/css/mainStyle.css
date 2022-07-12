@@ -7,6 +7,9 @@
 body{
     background-color: #F1F1F1;
     font-family: 'Varela Round', sans-serif;
+    display: flex;
+    flex-direction: row;
+
 }
 header{
     display: flex;
@@ -15,4 +18,10 @@ header{
     background-color: #FF8400;
     padding: 10px;
     color: white;
+}
+main{
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
 }
