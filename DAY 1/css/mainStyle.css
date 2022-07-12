@@ -19,7 +19,7 @@ header{
     padding: 10px;
     color: white;
 }
-main{
+.pageContent{
     display: flex;
     flex-direction: column;
     align-items: stretch;
