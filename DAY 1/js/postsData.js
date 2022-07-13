@@ -14,7 +14,8 @@ let inputs = {
     author: {label: 'Autor', defaultValue: '', filterKey:'userId'},
     title: {label: 'Tytuł', defaultValue: '', filterKey:'title'},
     content: {label: 'Treść', defaultValue: '', filterKey:'body'},
-    sort: {label: 'Sortowanie', defaultValue: 'default'},
+    sortBy: {label: 'Sortowanie po', defaultValue: 'userId'},
+    sortDirection: {label: 'Sposób sortowania', defaultValue: 'asc'},
 }
 
 const form = document.forms['filterForm'];
@@ -38,7 +39,7 @@ async function useFilter(e){
     for(let inputName in inputs){
         filterKeys[inputName] = form[inputName].value;
         if(form[inputName].type == 'text'){       
-            if(filterKeys[inputName]!=''){
+            if(!!filterKeys[inputName]){
                 if(isNaN(filterKeys[inputName])){
                     postsWithFilter = postsWithFilter.filter((e) =>{
                         return e[inputs[inputName].filterKey].search(form[inputName].value) !== -1
@@ -51,17 +52,14 @@ async function useFilter(e){
                 }
             }
         }
-        else if(form[inputName].type = 'select-one'){
-            if (filterKeys[inputName]=='default' || filterKeys[inputName]=='asc') {
-                postsWithFilter.sort((a,b) =>{
-                    return a[0] - b[0];
-                })
-            }
-            else if(filterKeys[inputName]=='desc'){
-                postsWithFilter.reverse((a,b) =>{
-                    return a[0] - b[0];
-                })
-            }
+        else if(form[inputName].id = 'sort'){
+            postsWithFilter.sort((a,b) =>{
+                let greater = a[form['sortBy'].value] >= b[form['sortBy'].value]
+                if(filterKeys[inputName]!='asc') {
+                    greater=!greater
+                }
+                return greater ? 1 : -1;
+            })
         }
     }
     for(let post in postsWithFilter){
