@@ -32,18 +32,19 @@
     gap:10px;
     padding: 10px;
 }
-.form-item{
+.formItem{
 	display: flex;
 	flex-direction: column;
+    justify-content: center;
 }
-.form-item > textarea, select, input{
+.formItem > textarea, select, input{
 	border: 2px solid #EA7B00;
  	border-radius: 4px;
 	font-size: 1rem;
 	padding: 0.5rem;
 	transition: 0.6s
 }
-form > button{
+.formItem > button{
 	border: none;
 	padding: 10px;
 	background: #FF8500;
@@ -51,6 +52,6 @@ form > button{
 	border-radius: 3px;
     min-width: 10%;
 }
-form > button:hover{
+.formItem > button:hover{
 	background: #EA7B00;
 }

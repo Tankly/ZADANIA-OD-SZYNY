@@ -27,19 +27,19 @@
         <main id="postsMain">
             <div id="filterFormContainer">
                 <form name="filterForm" id="filterForm">
-                    <div class="form-item">
+                    <div class="formItem">
                         <label for="author">Autor:</label>
                         <input type="text" id="author" name="author">
                     </div>
-                    <div class="form-item">
+                    <div class="formItem">
                         <label for="title">Tytuł:</label>
                         <input type="text" id="title" name="title">
                     </div>
-                    <div class="form-item">
+                    <div class="formItem">
                         <label for="content">Treść:</label>
                         <input type="text" id="content" name="content">
                     </div>
-                    <div class="form-item">
+                    <div class="formItem">
                         <label for="sortBy">Sortowanie po:</label>   
                         <select id="sortBy" name="sortBy">
                             <option selected value="userId">Autor</option>
@@ -47,15 +47,19 @@
                             <option value="body">Treść</option>
                         </select>
                     </div>
-                    <div class="form-item">
+                    <div class="formItem">
                         <label for="sortDirection">Sposób sortowania:</label>   
                         <select id="sortDirection" name="sortDirection">
                             <option selected value="asc">Rosnąco</option>
                             <option value="desc">Malejąco</option>
                         </select>
                     </div>
-                    <button id="filter">Filtruj</button>
-                    <button id="clean">Wyczyść</button>
+                    <div class="formItem">
+                        <button id="filter">Filtruj</button>
+                    </div>
+                    <div class="formItem">
+                        <button id="clean">Wyczyść</button>
+                    </div>
                 </form>
             </div>
             <div id="postsContainer">

@@ -1,7 +1,8 @@
 
-.form-item{
+.formItem{
 	display: flex;
 	flex-direction: column;
+	justify-content: center;
 }
 .form{
 	display: flex;
@@ -14,7 +15,7 @@ form{
     flex-direction: column;
     gap: 10px;
 }
-.form-item > textarea, select, input{
+.formItem > textarea, select, input{
 	border: 2px solid #EA7B00;
  	border-radius: 4px;
 	font-size: 1rem;

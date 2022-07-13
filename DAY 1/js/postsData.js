@@ -1,4 +1,5 @@
-import {getPostsData} from '../api.js'
+import { getPostsData } from '../api.js'
+import { makeFilter } from './filter.js';
 
 const postsContainer = document.getElementById('postsContainer');
 async function postsData(){
@@ -10,13 +11,18 @@ async function postsData(){
 }
 postsData();
 
+
 let inputs = {
-    author: {label: 'Autor', defaultValue: '', filterKey:'userId'},
-    title: {label: 'Tytuł', defaultValue: '', filterKey:'title'},
-    content: {label: 'Treść', defaultValue: '', filterKey:'body'},
-    sortBy: {label: 'Sortowanie po', defaultValue: 'userId'},
-    sortDirection: {label: 'Sposób sortowania', defaultValue: 'asc'},
+    author: {label: 'Autor:', defaultValue: '', filterKey: 'userId', type: 'input', inputType: 'text'},
+    title: {label: 'Tytuł:', defaultValue: '', filterKey: 'title', type: 'input', inputType: 'text'},
+    content: {label: 'Treść:', defaultValue: '', filterKey: 'body', type: 'input', inputType: 'text'},
+    sortBy: {label: 'Sortowanie po:', defaultValue: 'userId', type: 'select'},
+    sortDirection: {label: 'Sposób sortowania:', defaultValue: 'asc', type: 'select'},
+    filter: {type: 'button', id: 'filter', content: 'Filtruj'},
+    clean: {type: 'button', id: 'clean', content: 'Wyczyść'},
 }
+
+makeFilter(inputs);
 
 const form = document.forms['filterForm'];
 
@@ -52,10 +58,11 @@ async function useFilter(e){
                 }
             }
         }
-        else if(form[inputName].id = 'sort'){
+        else if(inputName == 'sortDirection'){
+            let isDesc = filterKeys[inputName] != 'asc'
             postsWithFilter.sort((a,b) =>{
                 let greater = a[form['sortBy'].value] >= b[form['sortBy'].value]
-                if(filterKeys[inputName]!='asc') {
+                if(isDesc) {
                     greater=!greater
                 }
                 return greater ? 1 : -1;
