@@ -1,5 +1,11 @@
+import { getPostsData } from '../api.js'
+
+var inputsFromPosts;
+
+const filter = new CustomEvent('filter');
 
 export function makeFilter(inputs){
+    inputsFromPosts = inputs;
     let filterFormContainer = document.getElementById('filterFormContainer');
     let filterForm = document.createElement('form');
     filterFormContainer.appendChild(filterForm);
@@ -21,11 +27,65 @@ export function makeFilter(inputs){
         
         formItemElement.id = inputName;
         formItemElement.name = inputName;
-        if(inputs[inputName].type = 'buttton'){
+        if(inputs[inputName].type == 'button'){
             formItemElement.innerText = inputs[inputName].content;
+            formItemElement.type = 'button';
+            if(inputs[inputName].btnFunction){
+                formItemElement.addEventListener('click', inputs[inputName].btnFunction);
+            }
         }
-        else if(inputs[inputName].type = 'input'){
-            formItemElement.type = inputs[inputName].inputType; 
+        else if(inputs[inputName].type == 'input'){
+            formItemElement.type = inputs[inputName].inputType;
+        }
+        else if(inputs[inputName].type == 'select'){
+            for(let i=0; i<inputs[inputName].selectOptions.length; i++){
+                let optionEl = document.createElement('option');
+                formItemElement.appendChild(optionEl);
+                optionEl.value = inputs[inputName].selectOptions[i];
+                optionEl.innerText = inputs[inputName].textForOptions[i];
+            }
         }
     }
 }
+
+
+export async function useFilter(data){
+    console.log(data);
+    return data;
+    postsContainer.innerHTML='';
+    let postsWithFilter = await getPostsData();
+    let filterKeys = [];
+    for(let inputName in inputs){
+        filterKeys[inputName] = form[inputName].value;
+        if(form[inputName].type == 'text'){       
+            if(!!filterKeys[inputName]){
+                if(isNaN(filterKeys[inputName])){
+                    postsWithFilter = postsWithFilter.filter((e) =>{
+                        return e[inputs[inputName].filterKey].search(form[inputName].value) !== -1
+                    })  
+                }
+                else{
+                    postsWithFilter = postsWithFilter.filter((e) =>{
+                        return e[inputs[inputName].filterKey] == form[inputName].value
+                    })  
+                }
+            }
+        }
+        else if(inputName == 'sortDirection'){
+            let isDesc = filterKeys[inputName] != 'asc'
+            postsWithFilter.sort((a,b) =>{
+                let greater = a[form['sortBy'].value] >= b[form['sortBy'].value]
+                if(isDesc) {
+                    greater=!greater
+                }
+                return greater ? 1 : -1;
+            })
+        }
+    }
+    for(let post in postsWithFilter){
+        buildPost(postsWithFilter[post])        
+    }
+}
+
+
+// document.getElementById('filter').addEventListener('click', () => document.dispatchEvent(filter));
