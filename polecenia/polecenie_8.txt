@@ -1,2 +1,3 @@
 Zaimplementuj routey w aplikacji. Zrób tak żeby linki były bez suffixu .html. Stwórz stronę index.html oraz index.js. Index.html posiadać będzie template strony, a index.js zajmować będzie się implementacją odpowiedniej podstrony. W index.html zostaw main pusty – ustaw id jako „template". Pozostałe pliki html mają zawiarać content odpowieniej strony. Wykorzystaj wiedzę z poniżej podanego linku. Wykorzystaj innerHTML. Pamiętaj, że importować można wiele plików oraz importy mogą być wykonywane w ifie
 https://parceljs.org/features/code-splitting/#using-dynamic-imports
+https://medium.com/altcampus/implementing-simple-spa-routing-using-vanilla-javascript-53abe399bf3c
