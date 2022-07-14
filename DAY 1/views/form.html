@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/formStyle.css">
+    <link rel="stylesheet" href="../css/customAlertStyle.css">
+    <link rel="stylesheet" href="../css/mainStyle.css">
+    <link rel="stylesheet" href="../css/navbarStyle.css">
+    <title>Strona główna - Formularz</title>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbarBody">
+                <a href="../index.html">
+                    <div class="navbarItem">Strona główna</div>
+                </a>
+                <a href="form.html">
+                    <div class="navbarItem">Formularz</div>
+                </a>
+                <a href="posts.html">
+                    <div class="navbarItem">Posty</div>
+                </a>
+        </div>
+    </nav>
+    <div class="pageContent">
+        <header>
+            <h1>Formularz</h1>
+        </header>
+        <main>
+            <div class="form">
+                <form name="userForm" id="userForm">
+                    <!-- parami label z inputem do divów dodac klase ktora to wyswietli pod soba oraz ogolny flex na caly form -->
+                    <div class="formItem">
+                        <label for="name">Imię:</label>
+                        <input type="text" id="name" name="name">
+                    </div>
+                    <div class="formItem">
+                        <label for="surname">Nazwisko:</label>
+                        <input type="text" id="surname" name="surname">
+                    </div>
+                    <div class="formItem">
+                        <label for="pesel">PESEL:</label>
+                        <input type="text" id="pesel" name="pesel" maxlength="11">
+                    </div>
+                    <div class="formItem">
+                        <label for="birthDate">Data urodzenia:</label>
+                        <input type="date" id="birthDate" name="birthDate" disabled>
+                    </div>
+                    <div class="formItem">
+                        <label for="age">Wiek:</label>
+                        <input type="number" id="age" name="age" disabled>
+                    </div>
+                    <div class="formItem">
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" name="email">
+                    </div>
+                    <div class="formItem">
+                        <label for="details">Opis:</label>
+                        <textarea id="details" name="details" rows="4" cols="50" placeholder="Dodaj opis"></textarea>
+                    </div>
+                    <div class="formItem">
+                        <label for="gender">Płeć:</label>   
+                        <select id="gender" name="gender" disabled>
+                            <option value="default" selected disabled hidden>Wybierz płeć</option>
+                            <option value="Mężczyzna">Mężczyzna</option>
+                            <option value="Kobieta">Kobieta</option>
+                        </select>
+                    </div>
+                    <!--@NOTE Input type button uciekl do lamusa tylko zwykly button-->
+                    <!--@NOTE onclick odszedł do lamusa tylko eventListner| return ?-->
+                    <!-- <input type="button" value="zapisz" onclick="getFormData()"> -->
+                    <button id="sendForm">zapisz</button>
+                </form>
+            </div>
+            <!-- wywalic i appendowac -->
+            <!-- <div id="output">
+            </div> -->
+        </main>
+    </dvi>
+</body>
+<!-- <script src="./js/customAlert.js" type="module"></script> -->
+<script src="../js/form.js"  type="module"></script>
+</html>
