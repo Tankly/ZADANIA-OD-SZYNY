@@ -1,8 +1,9 @@
 import { getPostsData } from '../api.js'
 
 var inputsFromPosts;
+var form;
 
-const filter = new CustomEvent('filter');
+// const filter = new CustomEvent('filter');
 
 export function makeFilter(inputs){
     inputsFromPosts = inputs;
@@ -27,6 +28,7 @@ export function makeFilter(inputs){
         
         formItemElement.id = inputName;
         formItemElement.name = inputName;
+
         if(inputs[inputName].type == 'button'){
             formItemElement.innerText = inputs[inputName].content;
             formItemElement.type = 'button';
@@ -46,27 +48,26 @@ export function makeFilter(inputs){
             }
         }
     }
+    form = document.forms['filterForm'];
 }
 
 
-export async function useFilter(data){
-    console.log(data);
-    return data;
+export async function useFilter(){
     postsContainer.innerHTML='';
     let postsWithFilter = await getPostsData();
     let filterKeys = [];
-    for(let inputName in inputs){
+    for(let inputName in inputsFromPosts){
         filterKeys[inputName] = form[inputName].value;
         if(form[inputName].type == 'text'){       
             if(!!filterKeys[inputName]){
                 if(isNaN(filterKeys[inputName])){
                     postsWithFilter = postsWithFilter.filter((e) =>{
-                        return e[inputs[inputName].filterKey].search(form[inputName].value) !== -1
+                        return e[inputsFromPosts[inputName].filterKey].search(form[inputName].value) !== -1
                     })  
                 }
                 else{
                     postsWithFilter = postsWithFilter.filter((e) =>{
-                        return e[inputs[inputName].filterKey] == form[inputName].value
+                        return e[inputsFromPosts[inputName].filterKey] == form[inputName].value
                     })  
                 }
             }
@@ -82,10 +83,16 @@ export async function useFilter(data){
             })
         }
     }
-    for(let post in postsWithFilter){
-        buildPost(postsWithFilter[post])        
-    }
+    return postsWithFilter;
 }
 
+
+export function cleanFilterForm(){
+    for(let inputName in inputsFromPosts){
+        if(inputsFromPosts[inputName].type != 'button'){
+            form[inputName].value = inputsFromPosts[inputName].defaultValue;
+        }
+    }
+}
 
 // document.getElementById('filter').addEventListener('click', () => document.dispatchEvent(filter));

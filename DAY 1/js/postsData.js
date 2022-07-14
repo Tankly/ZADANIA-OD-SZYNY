@@ -1,5 +1,5 @@
 import { getPostsData } from '../api.js'
-import { makeFilter, useFilter as filter } from './filter.js';
+import { makeFilter, useFilter as filter, cleanFilterForm as clean } from './filter.js';
 
 const postsContainer = document.getElementById('postsContainer');
 
@@ -9,9 +9,7 @@ async function postsData(){
     postsContainer.innerHTML='';
     posts = await getPostsData();
     let filteredPosts = await filter(posts)
-    for(let post in filteredPosts){
-        buildPost(filteredPosts[post])        
-    }
+    postBuilder(filteredPosts);
 }
 postsData();
 
@@ -24,74 +22,26 @@ let inputs = {
     sortDirection: {label: 'Sposób sortowania:', defaultValue: 'asc', type: 'select', selectOptions: ['asc', 'desc'], textForOptions: ['Rosnąco', 'Malejąco']},
     filter: {type: 'button', id: 'filter', content: 'Filtruj', btnFunction: async () =>{
         let filteredPosts = await filter(posts);
-        console.log(filteredPosts);
-        for(let post in filteredPosts){
-            buildPost(filteredPosts[post])        
-        }
+        postBuilder(filteredPosts);
     }},
-    clean: {type: 'button', id: 'clean', content: 'Wyczyść'},
+    clean: {type: 'button', id: 'clean', content: 'Wyczyść', btnFunction: async () =>{
+        clean();
+        await postsData();
+    }},
 }
 
 makeFilter(inputs);
 
-const form = document.forms['filterForm'];
+window.document.addEventListener('filter', filter);
+window.document.addEventListener('clean', clean);
 
-// document.getElementById('filter').addEventListener('click', useFilter);
-document.getElementById('clean').addEventListener('click', cleanFilterForm);
-
-window.document.addEventListener('filter', filter());
-
-
-function cleanFilterForm(e){
-    e.preventDefault();
-    for(let inputName in inputs){
-        if(inputs[inputName].type != 'button'){
-            form[inputName].value = inputs[inputName].defaultValue;
-        }
+function postBuilder(data){
+    for(let d in data){
+        buildPost(data[d])
     }
-    postsData();
 }
 
-// async function useFilter(e){
-//     e.preventDefault();
-//     postsContainer.innerHTML='';
-//     let postsWithFilter = await getPostsData();
-//     let filterKeys = [];
-//     for(let inputName in inputs){
-//         filterKeys[inputName] = form[inputName].value;
-//         if(form[inputName].type == 'text'){       
-//             if(!!filterKeys[inputName]){
-//                 if(isNaN(filterKeys[inputName])){
-//                     postsWithFilter = postsWithFilter.filter((e) =>{
-//                         return e[inputs[inputName].filterKey].search(form[inputName].value) !== -1
-//                     })  
-//                 }
-//                 else{
-//                     postsWithFilter = postsWithFilter.filter((e) =>{
-//                         return e[inputs[inputName].filterKey] == form[inputName].value
-//                     })  
-//                 }
-//             }
-//         }
-//         else if(inputName == 'sortDirection'){
-//             let isDesc = filterKeys[inputName] != 'asc'
-//             postsWithFilter.sort((a,b) =>{
-//                 let greater = a[form['sortBy'].value] >= b[form['sortBy'].value]
-//                 if(isDesc) {
-//                     greater=!greater
-//                 }
-//                 return greater ? 1 : -1;
-//             })
-//         }
-//     }
-//     for(let post in postsWithFilter){
-//         buildPost(postsWithFilter[post])        
-//     }
-// }
-
-
 function buildPost(postToBuild){
-    console.log('wykonuje sie');
     let postNumber = postToBuild.id;
     let postAuthor = postToBuild.userId;
     let postTitle = postToBuild.title;
