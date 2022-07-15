@@ -19,7 +19,7 @@ function home() {
 function about() {
     let div = document.createElement('div');
     let link = document.createElement('a');
-    link.href = '#/';
+    link.href = '/';
     link.innerText = 'Home';
 
     div.innerHTML = '<h1>About</h1>';

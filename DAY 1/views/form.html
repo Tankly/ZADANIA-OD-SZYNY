@@ -29,7 +29,7 @@
             <h1>Formularz</h1>
         </header>
         <main>
-            <div class="form">
+            <div class="formContainer">
                 <form name="userForm" id="userForm">
                     <!-- parami label z inputem do divów dodac klase ktora to wyswietli pod soba oraz ogolny flex na caly form -->
                     <div class="formItem">
@@ -71,7 +71,9 @@
                     <!--@NOTE Input type button uciekl do lamusa tylko zwykly button-->
                     <!--@NOTE onclick odszedł do lamusa tylko eventListner| return ?-->
                     <!-- <input type="button" value="zapisz" onclick="getFormData()"> -->
-                    <button id="sendForm">zapisz</button>
+                    <div class="formItem">
+                        <button type="button" id="sendForm">zapisz</button>
+                    </div>
                 </form>
             </div>
             <!-- wywalic i appendowac -->

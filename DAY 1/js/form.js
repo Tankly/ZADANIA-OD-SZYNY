@@ -1,5 +1,12 @@
 import {fireAlert} from './customAlert.js';
 
+
+var form;
+
+const isEven = (num) => num % 2 === 0;
+
+const addZero = (num) => num = '0' + num;
+
 const defaultValidation = (value) => {
     return /.+/.test(value)
 }
@@ -25,21 +32,100 @@ const peselValidation = (value) => {
 
 const regForEmail = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
 
+let formDetails = {
+    name: 'userForm',
+    id: 'userForm'
+}
+
 let inputs = {
-    name: {label: 'Imię', validationF: defaultValidation},
-    surname: {label: 'Nazwisko', validationF: defaultValidation},
-    pesel: {label: 'PESEL', validationF: peselValidation},
-    birthDate:{label: 'Data urodzenia', validationF: defaultValidation},
-    age: {label: 'Wiek', validationF: (value) => {
+    name: {label: 'Imię', type: 'input', inputType: 'text', validationF: defaultValidation},
+    surname: {label: 'Nazwisko', type: 'input', inputType: 'text', validationF: defaultValidation},
+    pesel: {label: 'PESEL', type: 'input', inputType: 'text', maxLength: '11',validationF: peselValidation},
+    birthDate:{label: 'Data urodzenia', type: 'input',  inputType: 'date', disabled: 'true', validationF: defaultValidation},
+    age: {label: 'Wiek', type: 'input', inputType: 'number', disabled: 'true', validationF: (value) => {
         return value > 0 && /.+/.test(value)
     }},
-    email: {label: 'Email', validationF: (value) => {
+    email: {label: 'Email', type: 'input', inputType: 'email', validationF: (value) => {
         return regForEmail.test(value)
     }},
-    details: {label: 'Opis', validationF: defaultValidation},
-    gender: {label: 'Płeć', validationF: defaultValidation},
+    details: {label: 'Opis', type: 'textarea', textArea: [4, 50], placeholder: 'Dodaj opis', validationF: defaultValidation},
+    gender: {label: 'Płeć', type: 'select', selectOptions: ['default', 'Mężczyzna', 'Kobieta'], textForOptions: ['Wybierz płeć', 'Mężczyzna', 'Kobieta'], disabled: 'true', validationF: defaultValidation},
+    sendForm: {type: 'button', id: 'sendForm', content: 'zapisz'}
 }
-const form = document.forms['userForm'];
+
+
+
+function buildForm(inputs, formDetails){
+    let app = document.getElementById('app');
+    let pageContent = document.createElement('div');
+    pageContent.className = 'pageContent';
+    app.appendChild(pageContent);
+    let header =  document.createElement('header');
+    pageContent.appendChild(header);
+    let headerH1 = document.createElement('h1');
+    headerH1.innerText = 'Formularz';
+    header.appendChild(headerH1);
+    let main = document.createElement('main');
+    pageContent.appendChild(main);
+    let formDiv = document.createElement('div');
+    formDiv.className = 'formContainer';
+    main.appendChild(formDiv);
+    let formEl = document.createElement('form');
+    formDiv.appendChild(formEl);
+    formEl.name = formDetails.name;
+    formEl.id =  formDetails.id;
+    for(let inputName in inputs){
+        let formItem = document.createElement('div');
+        formEl.appendChild(formItem);
+        formItem.className = 'formItem';
+        
+        if(inputs[inputName].type != 'button'){
+            let labelForInput = document.createElement('label');
+            formItem.appendChild(labelForInput);
+            labelForInput.htmlFor = inputName;
+            labelForInput.innerText = inputs[inputName].label;
+        }
+        let formItemElement = document.createElement(inputs[inputName].type);
+        formItem.appendChild(formItemElement);
+        
+        formItemElement.id = inputName;
+        formItemElement.name = inputName;
+
+        for(key of ['disabled','maxLength']) {
+            if(inputs[inputName][key]){
+                formItemElement[key] = inputs[inputName][key];
+            }
+        }
+
+        if(inputs[inputName].type == 'button'){
+            formItemElement.innerText = inputs[inputName].content;
+            formItemElement.type = 'button';
+            if(inputs[inputName].btnFunction){
+                formItemElement.addEventListener('click', inputs[inputName].btnFunction);
+            }
+        }
+        else if(inputs[inputName].type == 'input'){
+            formItemElement.type = inputs[inputName].inputType;
+        }
+        else if(inputs[inputName].type == 'select'){
+            for(let i=0; i<inputs[inputName].selectOptions.length; i++){
+                let optionEl = document.createElement('option');
+                formItemElement.appendChild(optionEl);
+                optionEl.value = inputs[inputName].selectOptions[i];
+                optionEl.innerText = inputs[inputName].textForOptions[i];
+                if(i==0){
+                    optionEl.selected = 'true';
+                    optionEl.hidden = 'true';
+                }
+            }
+        }
+    }
+    form = document.forms[formDetails.name];
+}
+buildForm(inputs, formDetails);
+
+
+
 
 const handlePesel = (e) =>  {
     let pesel = e.target.value;
@@ -100,13 +186,11 @@ document.getElementById('sendForm').addEventListener('click', getFormData)
 // }
 
 for(let inputName in inputs){
-    form[inputName].addEventListener('focusout', handleInputValidation);
-    form[inputName].addEventListener('input', handleInputValidation);
+    if(inputs[inputName].type != 'button'){
+        form[inputName].addEventListener('focusout', handleInputValidation);
+        form[inputName].addEventListener('input', handleInputValidation);
+    }
 }
-
-const isEven = (num) => num % 2 === 0;
-
-const addZero = (num) => num = '0' + num;
 
 function getFormData(e){
     e.preventDefault();
@@ -114,12 +198,14 @@ function getFormData(e){
     let output = '';
     let valid = true;
     for(let inputName in inputs) {
-        let value = form[inputName].value;
-        let inputSettings = inputs[inputName];
-        output+=`${inputSettings.label} : ${value}<br/>`;
-        if(!inputSettings.validationF(value)) {
-            alertMsg+= inputSettings.label+' ';
-            valid = false;
+        if(inputs[inputName].type != 'button'){
+            let value = form[inputName].value;
+            let inputSettings = inputs[inputName];
+            output+=`${inputSettings.label} : ${value}<br/>`;
+            if(!inputSettings.validationF(value)) {
+                alertMsg+= inputSettings.label+' ';
+                valid = false;
+            }
         }
     }
     if(valid){
