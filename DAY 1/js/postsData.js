@@ -1,7 +1,7 @@
 import { getPostsData } from '../api.js'
 import { makeFilter, useFilter as filter, cleanFilterForm as clean } from './filter.js';
 
-const postsContainer = document.getElementById('postsContainer');
+var postsContainer;
 
 var posts;
 
@@ -11,7 +11,31 @@ async function postsData(){
     let filteredPosts = await filter(posts)
     postBuilder(filteredPosts);
 }
-postsData();
+
+export function buildPostsFoundation(){
+    let app = document.getElementById('app');
+    let pageContent = document.createElement('div');
+    pageContent.className = 'pageContent';
+    app.appendChild(pageContent);
+    let header =  document.createElement('header');
+    pageContent.appendChild(header);
+    let headerH1 = document.createElement('h1');
+    headerH1.innerText = 'Posty';
+    header.appendChild(headerH1);
+    let main = document.createElement('main');
+    main.id = 'postsMain';
+    pageContent.appendChild(main);
+    let filterFormContainerDiv = document.createElement('div');
+    filterFormContainerDiv.id = 'filterFormContainer';
+    main.appendChild(filterFormContainerDiv);
+    let postsContainerDiv = document.createElement('div');
+    postsContainerDiv.id = 'postsContainer';
+    main.appendChild(postsContainerDiv);
+    postsContainer = document.getElementById('postsContainer')
+    makeFilter(inputs);
+    postsData();
+}
+
 
 
 let inputs = {
@@ -30,7 +54,6 @@ let inputs = {
     }},
 }
 
-makeFilter(inputs);
 
 // window.document.addEventListener('filter', filter);
 // window.document.addEventListener('clean', clean);

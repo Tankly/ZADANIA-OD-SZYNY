@@ -30,6 +30,17 @@ const peselValidation = (value) => {
     }
 }
 
+const handleInputValidation = (e) => {
+    let inputValue = e.target.value;
+    let validF = inputs[e.target.name].validationF
+    if(!validF(inputValue)){
+        e.target.classList.add("wrongInput");
+    }
+    else{
+        e.target.classList.remove("wrongInput");
+    }
+}
+
 const regForEmail = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
 
 let formDetails = {
@@ -121,8 +132,18 @@ export function buildForm(){
         }
     }
     form = document.forms[formDetails.name];
+
+    document.getElementById('pesel').addEventListener('input', handlePesel)
+    document.getElementById('sendForm').addEventListener('click', getFormData)
+    
+    for(let inputName in inputs){
+        if(inputs[inputName].type != 'button'){
+            form[inputName].addEventListener('focusout', handleInputValidation);
+            form[inputName].addEventListener('input', handleInputValidation);
+        }
+    }
 }
-buildForm(inputs, formDetails);
+// buildForm(inputs, formDetails);
 
 
 
@@ -163,20 +184,7 @@ const handlePesel = (e) =>  {
     }
 }
 
-const handleInputValidation = (e) => {
-    let inputValue = e.target.value;
-    let validF = inputs[e.target.name].validationF
-    if(!validF(inputValue)){
-        e.target.classList.add("wrongInput");
-    }
-    else{
-        e.target.classList.remove("wrongInput");
-    }
-}
 
-document.getElementById('pesel').addEventListener('input', handlePesel)
-
-document.getElementById('sendForm').addEventListener('click', getFormData)
 
 //@NOTE "obrzydliwe"
 // const inputsForLiveValidation = document.querySelectorAll('input:not(input[type="button"])')
@@ -185,12 +193,7 @@ document.getElementById('sendForm').addEventListener('click', getFormData)
 //     inputsForLiveValidation[i].addEventListener('focusout', handleInputValidation);
 // }
 
-for(let inputName in inputs){
-    if(inputs[inputName].type != 'button'){
-        form[inputName].addEventListener('focusout', handleInputValidation);
-        form[inputName].addEventListener('input', handleInputValidation);
-    }
-}
+
 
 function getFormData(e){
     e.preventDefault();
