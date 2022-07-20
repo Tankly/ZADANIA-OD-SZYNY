@@ -1,74 +1,24 @@
-let routes = {};
+import { buildNavbar } from '../components/navbar.js'
+import { buildForm } from '../js/form.js'
 
-let templates = {};
+function changeUrl(state, title, url) {
+    window.history.pushState(state, title, url);
+}
 
-let app = document.getElementById('app');
+const pages = {
+    home: {state: 'home', title: 'Strona główna', url: '/', buildPageFun: function(){
+        changeUrl(this.state, this.title, this.url);
+        document.getElementById('app').innerHTML = '';
+    }},
+    posts: {state: 'posts', title: 'Posty', url: '/posts', buildPageFun: function(){
+        changeUrl(this.state, this.title, this.url);
+        document.getElementById('app').innerHTML = '';
+    }},
+    userForm: {state: 'userForm', title: 'Formularz', url: '/userForm', buildPageFun: function(){
+        changeUrl(this.state, this.title, this.url);
+        document.getElementById('app').innerHTML = '';
+        buildForm();
+    }},
+}
 
-function home() {
-    let div = document.createElement('div');
-    let link = document.createElement('a');
-    link.href = '#/about';
-    link.innerText = 'About';
-
-    div.innerHTML = '<h1>Strona główna</h1>';
-    div.appendChild(link);
-
-    app.appendChild(div);
-};
-
-function about() {
-    let div = document.createElement('div');
-    let link = document.createElement('a');
-    link.href = '/';
-    link.innerText = 'Home';
-
-    div.innerHTML = '<h1>About</h1>';
-    div.appendChild(link);
-
-    app.appendChild(div);
-};
-
-function route (path, template) {
-    if (typeof template === 'function') {
-        return routes[path] = template;
-    }
-    else if (typeof template === 'string') {
-        return routes[path] = templates[template];
-    } else {
-        return;
-    };
-};
-
-function template (name, templateFunction) {
-    return templates[name] = templateFunction;
-};
-
-template('home', function(){
-    home();
-});
-
-template('about', function(){
-    about();
-});
-
-route('/', 'home');
-route('/about', 'about');
-
-
-function resolveRoute(route) {
-    try {
-        return routes[route];
-    } catch (e) {
-        throw new Error(`Route ${route} not found`);
-    };
-};
-
-function router(evt) {
-    let url = window.location.hash.slice(1) || '/';
-    let route = resolveRoute(url);
-
-    route();
-};
-
-window.addEventListener('load', router);
-window.addEventListener('hashchange', router);
+buildNavbar(pages);

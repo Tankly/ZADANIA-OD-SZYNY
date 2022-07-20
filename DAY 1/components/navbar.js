@@ -1,11 +1,5 @@
 
-const pages = {
-    home: '/',
-    posts: '/posts',
-    form: '/form'
-}
-
-function buildNavbar(pages) {
+export function buildNavbar(pages) {
     let body = document.body;
     let navbar = document.createElement('nav');
     navbar.className = 'navbar';
@@ -14,13 +8,18 @@ function buildNavbar(pages) {
     navbarBody.className = 'navbarBody';
     navbar.appendChild(navbarBody);
     for(let page in pages){
-        let a = document.createElement('a');
-        a.href = pages[page];
-        navbarBody.appendChild(a);
+        // let a = document.createElement('a');
+        // a.href = pages[page].url;
+        // navbarBody.appendChild(a);
         let navbarItem = document.createElement('div');
         navbarItem.className = 'navbarItem';
-        navbarItem.innerText = page;
-        a.appendChild(navbarItem);
+        navbarItem.innerText = pages[page].title;
+        navbarItem.addEventListener('click', () => {
+            pages[page].buildPageFun()
+        });
+        navbarItem.addEventListener('popstate', () => {
+            pages[page].buildPageFun()
+        });
+        navbarBody.appendChild(navbarItem);
     }
 }
-buildNavbar(pages);

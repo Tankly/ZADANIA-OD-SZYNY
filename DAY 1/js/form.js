@@ -55,7 +55,7 @@ let inputs = {
 
 
 
-function buildForm(inputs, formDetails){
+export function buildForm(){
     let app = document.getElementById('app');
     let pageContent = document.createElement('div');
     pageContent.className = 'pageContent';

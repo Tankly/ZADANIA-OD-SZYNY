@@ -32,8 +32,8 @@ let inputs = {
 
 makeFilter(inputs);
 
-window.document.addEventListener('filter', filter);
-window.document.addEventListener('clean', clean);
+// window.document.addEventListener('filter', filter);
+// window.document.addEventListener('clean', clean);
 
 function postBuilder(data){
     for(let d in data){
