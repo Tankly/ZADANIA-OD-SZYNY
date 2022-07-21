@@ -1,5 +1,6 @@
 import { getPostsData } from '../api.js'
 import { makeFilter, useFilter as filter, cleanFilterForm as clean } from './filter.js';
+import l  from './loading.js';
 
 var postsContainer;
 
@@ -10,6 +11,7 @@ async function postsData(){
     posts = await getPostsData();
     let filteredPosts = await filter(posts)
     postBuilder(filteredPosts);
+    
 }
 
 export function buildPostsFoundation(){
@@ -37,7 +39,6 @@ export function buildPostsFoundation(){
 }
 
 
-
 let inputs = {
     author: {label: 'Autor:', defaultValue: '', filterKey: 'userId', type: 'input', inputType: 'text'},
     title: {label: 'Tytuł:', defaultValue: '', filterKey: 'title', type: 'input', inputType: 'text'},
@@ -59,9 +60,11 @@ let inputs = {
 // window.document.addEventListener('clean', clean);
 
 function postBuilder(data){
+    l.loading(postsContainer);
     for(let d in data){
         buildPost(data[d])
     }
+    l.unlink();
 }
 
 function buildPost(postToBuild){
@@ -70,6 +73,7 @@ function buildPost(postToBuild){
     let postTitle = postToBuild.title;
     let postBody = postToBuild.body;
 
+    
     let postDiv = document.createElement('div');
     let post = postsContainer.appendChild(postDiv);
     post.className = 'post';
@@ -85,4 +89,5 @@ function buildPost(postToBuild){
     let postAuthorSpan = document.createElement('span');
     let postAuthorDone = post.appendChild(postAuthorSpan);
     postAuthorDone.innerText =`Autor: ${postAuthor}`;
+    
 }

@@ -2,24 +2,30 @@ import { buildNavbar } from '../components/navbar.js'
 import { buildForm } from '../js/form.js'
 import { buildPostsFoundation } from '../js/postsData.js'
 import { buildMain } from '../js/mainPage.js'
+import l from '../js/loading.js'
+
+
+const app = document.getElementById('app');
 
 function buildError() {
-    document.getElementById('app').innerHTML = '<h1>Podany adres nie istnieje</h1>';
+    app.innerHTML = '<h1>Podany adres nie istnieje</h1>';
 }
 
 window.addEventListener('load', () => {
+    l.loading(app);
     if(window.location.pathname === '/'){
         buildMain();
-      }
+    }
     else if(window.location.pathname === '/posts'){
         buildPostsFoundation();
-      }
+    }
     else if(window.location.pathname === '/userForm'){
         buildForm();
-      }
+    }
     else{
         buildError();
     }
+    l.unlink();
   });
 
 function changeUrl(state, title, url) {
@@ -29,19 +35,25 @@ function changeUrl(state, title, url) {
 const pages = {
     home: {state: 'home', title: 'Strona główna', url: '/', buildPageFun: function(){
         changeUrl(this.state, this.title, this.url);
-        document.getElementById('app').innerHTML = '';
+        app.innerHTML = '';
+        l.loading(app);
         buildMain();
+        l.unlink();
     }},
     posts: {state: 'posts', title: 'Posty', url: '/posts', buildPageFun: function(){
         changeUrl(this.state, this.title, this.url);
-        document.getElementById('app').innerHTML = '';
+        app.innerHTML = '';
+        l.loading(app);
         buildPostsFoundation();
+        l.unlink();
 
     }},
     userForm: {state: 'userForm', title: 'Formularz', url: '/userForm', buildPageFun: function(){
         changeUrl(this.state, this.title, this.url);
-        document.getElementById('app').innerHTML = '';
+        app.innerHTML = '';
+        l.loading(app);
         buildForm();
+        l.unlink();
     }},
 }
 
@@ -60,3 +72,6 @@ const pages = {
 // }
 
 buildNavbar(pages);
+
+// loading(document.getElementById('app'));
+

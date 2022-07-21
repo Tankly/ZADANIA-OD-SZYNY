@@ -9,7 +9,9 @@
 #postsContainer{
     display: flex;
     flex-direction: column;
-    gap:10px;
+    gap: 10px;
+    width: auto;
+    position: relative;
 }
 .post{
     border: 2px solid #EA7B00;
