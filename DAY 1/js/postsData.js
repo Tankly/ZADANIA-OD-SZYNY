@@ -1,5 +1,5 @@
 import { getPostsData } from '../api.js'
-import { makeFilter, useFilter as filter, cleanFilterForm as clean } from './filter.js';
+import { makeFilter, useFilter as filter, cleanFilterForm as clean, saveFilterSettings } from './filter.js';
 import l  from './loading.js';
 
 var postsContainer;
@@ -40,7 +40,7 @@ export function buildPostsFoundation(){
 
 
 let inputs = {
-    author: {label: 'Autor:', defaultValue: '', filterKey: 'userId', type: 'input', inputType: 'text'},
+    author: {label: 'Autor:', defaultValue: '', filterKey: 'userId', type: 'input', inputType: 'number'},
     title: {label: 'Tytuł:', defaultValue: '', filterKey: 'title', type: 'input', inputType: 'text'},
     content: {label: 'Treść:', defaultValue: '', filterKey: 'body', type: 'input', inputType: 'text'},
     sortBy: {label: 'Sortowanie po:', defaultValue: 'userId', type: 'select', selectOptions: ['userId', 'title', 'body'], textForOptions: ['Autor', 'Tytuł', 'Treść']},
@@ -48,10 +48,12 @@ let inputs = {
     filter: {type: 'button', id: 'filter', content: 'Filtruj', btnFunction: async () =>{
         let filteredPosts = await filter(posts);
         postBuilder(filteredPosts);
+        saveFilterSettings();
     }},
     clean: {type: 'button', id: 'clean', content: 'Wyczyść', btnFunction: async () =>{
         clean();
         await postsData();
+        localStorage.clear();
     }},
 }
 

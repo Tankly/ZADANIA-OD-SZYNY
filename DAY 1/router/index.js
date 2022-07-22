@@ -8,8 +8,29 @@ import l from '../js/loading.js'
 const app = document.getElementById('app');
 
 function buildError() {
-    app.innerHTML = '<h1>Podany adres nie istnieje</h1>';
+    app.innerHTML = '<h1>404 Podany adres nie istnieje</h1>';
 }
+
+window.addEventListener('popstate', () => {
+    l.loading(app);
+    if(window.location.pathname === '/'){
+        app.innerHTML = '';
+        buildMain();
+    }
+    else if(window.location.pathname === '/posts'){
+        app.innerHTML = '';
+        buildPostsFoundation();
+    }
+    else if(window.location.pathname === '/userForm'){
+        app.innerHTML = '';
+        buildForm();
+    }
+    else{
+        app.innerHTML = '';
+        buildError();
+    }
+    l.unlink();
+  });
 
 window.addEventListener('load', () => {
     l.loading(app);

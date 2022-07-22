@@ -1,0 +1,1 @@
+Dodaj uniwersalny loading przy zmianie strony oraz przy ładowaniu danych. Dodaj stronę 404.

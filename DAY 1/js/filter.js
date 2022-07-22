@@ -3,7 +3,35 @@ import { getPostsData } from '../api.js'
 var inputsFromPosts;
 var form;
 
+// localStorage.setItem('autor', '2');
+// console.log(localStorage.getItem('autor'));
+// console.log(localStorage);
+
+// localStorage.clear();
+
+
+
 // const filter = new CustomEvent('filter');
+
+export function saveFilterSettings(){
+    let path = window.location.pathname.substring(1)
+    for(inputName in inputsFromPosts){
+        if(inputsFromPosts[inputName].type != 'button'){
+            localStorage.setItem(`${path}::${inputName}`, form[inputName].value);
+        }
+    }
+}
+
+
+window.addEventListener('beforeunload', () => {
+    saveFilterSettings();
+    // console.log(localStorage);
+})
+
+// window.addEventListener('popstate', () => {
+//     saveFilterSettings();
+//     console.log(localStorage);
+// })
 
 export function makeFilter(inputs){
     inputsFromPosts = inputs;
@@ -49,6 +77,17 @@ export function makeFilter(inputs){
         }
     }
     form = document.forms['filterForm'];
+    // console.log(form);
+    if(localStorage){
+        let path = window.location.pathname.substring(1);
+        for(inputName in inputsFromPosts){
+            if(inputsFromPosts[inputName].type != 'button'){
+                // console.log(inputName);
+                // console.log(localStorage.getItem(inputName));
+                form[inputName].value = localStorage.getItem(`${path}::${inputName}`);
+            }
+        }
+    }
 }
 
 
@@ -62,7 +101,7 @@ export async function useFilter(){
             if(!!filterKeys[inputName]){
                 if(isNaN(filterKeys[inputName])){
                     postsWithFilter = postsWithFilter.filter((e) =>{
-                        return e[inputsFromPosts[inputName].filterKey].search(form[inputName].value) !== -1
+                        return e[inputsFromPosts[inputName].filterKey].indexOf(form[inputName].value) !== -1
                     })  
                 }
                 else{

@@ -17,8 +17,9 @@ export function buildNavbar(pages) {
         navbarItem.addEventListener('click', () => {
             pages[page].buildPageFun()
         });
-        // navbarItem.addEventListener('load', () => {
-        //     pages[page].buildPageFun()
+        // navbarItem.addEventListener('popState', () => {
+        //     // pages[page].buildPageFun()
+        //     console.log('aaaaa');
         // });
         navbarBody.appendChild(navbarItem);
     }
