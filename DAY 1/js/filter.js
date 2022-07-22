@@ -82,9 +82,9 @@ export function makeFilter(inputs){
         let path = window.location.pathname.substring(1);
         for(inputName in inputsFromPosts){
             if(inputsFromPosts[inputName].type != 'button'){
-                // console.log(inputName);
-                // console.log(localStorage.getItem(inputName));
-                form[inputName].value = localStorage.getItem(`${path}::${inputName}`);
+                if (localStorage.getItem(`${path}::${inputName}`)) {
+                    form[inputName].value = localStorage.getItem(`${path}::${inputName}`);
+                }
             }
         }
     }
@@ -99,16 +99,23 @@ export async function useFilter(){
         filterKeys[inputName] = form[inputName].value;
         if(form[inputName].type == 'text'){       
             if(!!filterKeys[inputName]){
-                if(isNaN(filterKeys[inputName])){
-                    postsWithFilter = postsWithFilter.filter((e) =>{
-                        return e[inputsFromPosts[inputName].filterKey].indexOf(form[inputName].value) !== -1
-                    })  
-                }
-                else{
-                    postsWithFilter = postsWithFilter.filter((e) =>{
-                        return e[inputsFromPosts[inputName].filterKey] == form[inputName].value
-                    })  
-                }
+                // if(isNaN(filterKeys[inputName])){
+                postsWithFilter = postsWithFilter.filter((e) =>{
+                    return e[inputsFromPosts[inputName].filterKey].indexOf(form[inputName].value) !== -1
+                })  
+                // }
+                // else{
+                //     postsWithFilter = postsWithFilter.filter((e) =>{
+                //         return e[inputsFromPosts[inputName].filterKey] == form[inputName].value
+                //     })  
+                // }
+            }
+        }
+        else if(form[inputName].type == 'number'){
+            if(!!filterKeys[inputName]){
+                postsWithFilter = postsWithFilter.filter((e) =>{
+                    return e[inputsFromPosts[inputName].filterKey] == form[inputName].value
+                })
             }
         }
         else if(inputName == 'sortDirection'){
@@ -132,6 +139,7 @@ export function cleanFilterForm(){
             form[inputName].value = inputsFromPosts[inputName].defaultValue;
         }
     }
+    localStorage.clear();
 }
 
 // document.getElementById('filter').addEventListener('click', () => document.dispatchEvent(filter));

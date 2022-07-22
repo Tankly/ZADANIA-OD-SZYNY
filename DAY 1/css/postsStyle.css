@@ -28,6 +28,15 @@
     padding: 5px;
 }
 
+.postFooter > button {
+    color: #fff;
+    min-width: 10%;
+    background: #ff8500;
+    border: none;
+    border-radius: 3px;
+    padding: 10px;
+}
+
 #filterForm{
     display: flex;
     flex-wrap: wrap;
@@ -56,4 +65,18 @@
 }
 .formItem > button:hover{
 	background: #EA7B00;
+}
+.postFooter{
+    display: flex;
+    justify-content: space-between;
+}
+.commentsContainer{
+    /* background-color: lightgrey; */
+    margin-top: 1em;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+.commentDiv{
+    border-bottom: 2px solid #55C8F2;
 }

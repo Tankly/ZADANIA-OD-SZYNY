@@ -14,7 +14,26 @@ async function postsData(){
     
 }
 
-getPostComments(1);
+function buildComments(postNumber,commentsData) {
+    let postDiv = document.getElementById(postNumber);
+    let commentsContainer = document.createElement('div');
+    commentsContainer.className = 'commentsContainer';
+    commentsContainer.id = `${postNumber}_comments`;
+    commentsContainer.innerHTML = "<h3>Komentarze:</h3>";
+    postDiv.appendChild(commentsContainer);
+    // commentsBuilder(commentsData)
+    for(comment in commentsData){
+        let commentDiv = document.createElement('div');
+        commentDiv.className = 'commentDiv';
+        commentsContainer.appendChild(commentDiv);
+        let commentHeader = document.createElement('h4');
+        commentHeader.innerHTML = `${commentsData[comment].email} <br> ${commentsData[comment].name}`
+        commentDiv.appendChild(commentHeader);
+        let commentBody = document.createElement('p');
+        commentBody.innerText = commentsData[comment].body;
+        commentDiv.appendChild(commentBody);
+    }
+}
 
 export function buildPostsFoundation(){
     let app = document.getElementById('app');
@@ -55,7 +74,6 @@ let inputs = {
     clean: {type: 'button', id: 'clean', content: 'Wyczyść', btnFunction: async () =>{
         clean();
         await postsData();
-        localStorage.clear();
     }},
 }
 
@@ -81,6 +99,7 @@ function buildPost(postToBuild){
     let postDiv = document.createElement('div');
     let post = postsContainer.appendChild(postDiv);
     post.className = 'post';
+    post.id = `post_${postNumber}`;
     
     let postHeaderH2 = document.createElement('h2');
     let postHeaderDone = post.appendChild(postHeaderH2);
@@ -90,8 +109,29 @@ function buildPost(postToBuild){
     let postBodyDone = post.appendChild(postBodyP);
     postBodyDone.innerText = postBody;
 
+    let postFooter = document.createElement('div');
+    postFooter.className = 'postFooter';
+    post.appendChild(postFooter);
+    
     let postAuthorSpan = document.createElement('span');
-    let postAuthorDone = post.appendChild(postAuthorSpan);
-    postAuthorDone.innerText =`Autor: ${postAuthor}`;
+    postAuthorSpan.innerText =`Autor: ${postAuthor}`;
+    postFooter.appendChild(postAuthorSpan);
+
+    let postCommentsBtn = document.createElement('button');
+    postCommentsBtn.innerText = 'Komentarze';
+    postCommentsBtn.value = 'notClicked';
+    postFooter.appendChild(postCommentsBtn);
+
+    postCommentsBtn.addEventListener('click', async (e) => {
+        if(e.target.value === 'notClicked'){
+            commentsData = await getPostComments(postNumber);
+            buildComments(post.id, commentsData);
+            e.target.value = 'clicked';
+        }
+        else{
+            e.target.value = 'notClicked';
+            document.getElementById(`${post.id}_comments`).remove();
+        }
+    })
     
 }
