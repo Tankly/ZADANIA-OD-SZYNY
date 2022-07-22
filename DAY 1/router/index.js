@@ -94,5 +94,6 @@ const pages = {
 
 buildNavbar(pages);
 
+
 // loading(document.getElementById('app'));
 

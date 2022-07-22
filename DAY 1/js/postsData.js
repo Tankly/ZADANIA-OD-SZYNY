@@ -1,4 +1,4 @@
-import { getPostsData } from '../api.js'
+import { getPostsData, getPostComments } from '../api.js'
 import { makeFilter, useFilter as filter, cleanFilterForm as clean, saveFilterSettings } from './filter.js';
 import l  from './loading.js';
 
@@ -13,6 +13,8 @@ async function postsData(){
     postBuilder(filteredPosts);
     
 }
+
+getPostComments(1);
 
 export function buildPostsFoundation(){
     let app = document.getElementById('app');
