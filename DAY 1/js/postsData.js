@@ -126,11 +126,13 @@ function buildPost(postToBuild){
         if(e.target.value === 'notClicked'){
             commentsData = await getPostComments(postNumber);
             buildComments(post.id, commentsData);
+            document.getElementById(post.id).style.maxHeight = '100vh';
             e.target.value = 'clicked';
         }
         else{
             e.target.value = 'notClicked';
             document.getElementById(`${post.id}_comments`).remove();
+            document.getElementById(post.id).style.maxHeight = '250px';
         }
     })
     
