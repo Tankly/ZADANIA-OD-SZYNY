@@ -1,5 +1,8 @@
 
 export function buildNavbar(pages) {
+    if(document.querySelector('nav')){
+        document.querySelector('nav').remove();
+    }
     let body = document.body;
     let navbar = document.createElement('nav');
     navbar.className = 'navbar';
