@@ -1,0 +1,3 @@
+Utwórz podstronę wraz z filtrami która wyświetli wszystkie albumy. Zezwól na możliwość „wejścia w dany album co spowokduje pokazanie zdjęć danego albumu ze slajdera własnoręcznie napisanego.
+https://jsonplaceholder.typicode.com/albums/1
+https://jsonplaceholder.typicode.com/albums/1/photos

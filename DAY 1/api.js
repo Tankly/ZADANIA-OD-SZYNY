@@ -21,6 +21,26 @@ export async function getPostComments(postId) {
         }
 }
 
+export async function getAlbums(){
+        try{
+                const response = await axios.get('https://jsonplaceholder.typicode.com/albums/');
+                return response.data;
+        }
+        catch (error){
+                return []
+        }
+}
+
+export async function getPhotosOfGivenAlbum(albumId){
+        try {
+                const response = await axios.get(`https://jsonplaceholder.typicode.com/albums/${albumId}/photos`);
+                return response.data
+        }
+        catch (error) {
+                return []
+        }
+}
+
 //@NOTE wersja 2 
 // export const getPostsData = async () => {
 //     const res = await axios.get("https://jsonplaceholder.typicode.com/posts/");

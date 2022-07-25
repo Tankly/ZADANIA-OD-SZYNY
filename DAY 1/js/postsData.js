@@ -9,7 +9,7 @@ var posts;
 async function postsData(){
     postsContainer.innerHTML='';
     posts = await getPostsData();
-    let filteredPosts = await filter(posts)
+    let filteredPosts = await filter('posts')
     postBuilder(filteredPosts);
     
 }
@@ -67,7 +67,7 @@ let inputs = {
     sortBy: {label: 'Sortowanie po:', defaultValue: 'userId', type: 'select', selectOptions: ['userId', 'title', 'body'], textForOptions: ['Autor', 'Tytuł', 'Treść']},
     sortDirection: {label: 'Sposób sortowania:', defaultValue: 'asc', type: 'select', selectOptions: ['asc', 'desc'], textForOptions: ['Rosnąco', 'Malejąco']},
     filter: {type: 'button', id: 'filter', content: 'Filtruj', btnFunction: async () =>{
-        let filteredPosts = await filter(posts);
+        let filteredPosts = await filter('posts');
         postBuilder(filteredPosts);
         saveFilterSettings();
     }},
@@ -126,7 +126,7 @@ function buildPost(postToBuild){
         if(e.target.value === 'notClicked'){
             commentsData = await getPostComments(postNumber);
             buildComments(post.id, commentsData);
-            document.getElementById(post.id).style.maxHeight = '100vh';
+            document.getElementById(post.id).style.maxHeight = '200vh';
             e.target.value = 'clicked';
         }
         else{

@@ -1,6 +1,7 @@
 import { buildNavbar } from '../components/navbar.js'
 import { buildForm } from '../js/form.js'
 import { buildPostsFoundation } from '../js/postsData.js'
+import { buildAlbumsFoundation } from '../js/albums.js'
 import { buildMain } from '../js/mainPage.js'
 import l from '../js/loading.js'
 
@@ -21,6 +22,10 @@ window.addEventListener('popstate', () => {
         app.innerHTML = '';
         buildPostsFoundation();
     }
+    else if(window.location.pathname === '/albums'){
+        app.innerHTML = '';
+        buildAlbumsFoundation();
+    }
     else if(window.location.pathname === '/userForm'){
         app.innerHTML = '';
         buildForm();
@@ -30,7 +35,7 @@ window.addEventListener('popstate', () => {
         buildError();
     }
     l.unlink();
-  });
+});
 
 window.addEventListener('load', () => {
     l.loading(app);
@@ -40,6 +45,9 @@ window.addEventListener('load', () => {
     else if(window.location.pathname === '/posts'){
         buildPostsFoundation();
     }
+    else if(window.location.pathname === '/albums'){
+        buildAlbumsFoundation();
+    }
     else if(window.location.pathname === '/userForm'){
         buildForm();
     }
@@ -49,14 +57,14 @@ window.addEventListener('load', () => {
     l.unlink();
   });
 
-function changeUrl(state, title, url) {
-    window.history.pushState(state, title, url);
-}
-
-const pages = {
-    home: {state: 'home', title: 'Strona główna', url: '/', buildPageFun: function(){
-        changeUrl(this.state, this.title, this.url);
-        app.innerHTML = '';
+  export function changeUrl(state, title, url) {
+      window.history.pushState(state, title, url);
+    }
+    
+    const pages = {
+        home: {state: 'home', title: 'Strona główna', url: '/', buildPageFun: function(){
+            changeUrl(this.state, this.title, this.url);
+            app.innerHTML = '';
         l.loading(app);
         buildMain();
         l.unlink();
@@ -67,7 +75,7 @@ const pages = {
         l.loading(app);
         buildPostsFoundation();
         l.unlink();
-
+        
     }},
     userForm: {state: 'userForm', title: 'Formularz', url: '/userForm', buildPageFun: function(){
         changeUrl(this.state, this.title, this.url);
@@ -76,24 +84,32 @@ const pages = {
         buildForm();
         l.unlink();
     }},
+    albums: {state: 'albums', title: 'Albumy', url: '/albums', buildPageFun: function(){
+        changeUrl(this.state, this.title, this.url);
+        app.innerHTML = '';
+        l.loading(app);
+        buildAlbumsFoundation();
+        l.unlink();
+        
+    }},
 }
 
 // let lastUrl = location.href; 
 // new MutationObserver(() => {
-//   const url = location.href;
-//   if (url !== lastUrl) {
-//     lastUrl = url;
-//     onUrlChange();
-//   }
-// }).observe(document, {subtree: true, childList: true});
- 
- 
-// function onUrlChange() {
-//   alert('URL changed!', location.href);
-// }
-
-buildNavbar(pages);
-
+    //   const url = location.href;
+    //   if (url !== lastUrl) {
+        //     lastUrl = url;
+        //     onUrlChange();
+        //   }
+        // }).observe(document, {subtree: true, childList: true});
+        
+        
+        // function onUrlChange() {
+            //   alert('URL changed!', location.href);
+            // }
+            
+            
 
 // loading(document.getElementById('app'));
 
+buildNavbar(pages);

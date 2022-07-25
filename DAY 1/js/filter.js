@@ -1,4 +1,5 @@
 import { getPostsData } from '../api.js'
+import { getAlbums } from '../api.js'
 
 var inputsFromPosts;
 var form;
@@ -91,9 +92,16 @@ export function makeFilter(inputs){
 }
 
 
-export async function useFilter(){
-    postsContainer.innerHTML='';
-    let postsWithFilter = await getPostsData();
+export async function useFilter(whatToFilter){
+    let postsWithFilter;
+    if(whatToFilter == 'posts'){
+        postsContainer.innerHTML='';
+        postsWithFilter = await getPostsData();
+    }
+    else if(whatToFilter == 'albums'){
+        albumsContainer.innerHTML='';
+        postsWithFilter = await getAlbums();
+    }
     let filterKeys = [];
     for(let inputName in inputsFromPosts){
         filterKeys[inputName] = form[inputName].value;

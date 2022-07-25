@@ -1,0 +1,93 @@
+#albumsMain{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    /* margin-top:10px; */
+}
+#albumsContainer{
+    gap: 10px;
+    width: auto;
+    position: relative;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap; 
+    /* display: grid;
+    grid-template-columns: repeat(4,1fr); */
+}
+.album{
+    border: 2px solid #EA7B00;
+ 	border-radius: 4px;
+	font-size: 1rem;
+	padding: 0.5rem;
+    transition: all 1s;
+    width: 25%;
+    overflow: hidden;
+    max-height: 250px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/* .albumWithComments{
+    max-height: 100vh;
+} */
+
+.album > h2{
+    border-bottom: 2px solid #55C8F2;
+}
+
+.album > p, span, h2{
+    padding: 5px;
+}
+
+.albumFooter{
+    margin-top: 5px;
+    display: flex;
+    justify-content: space-between;
+}
+.albumFooter > button {
+    color: #fff;
+    min-width: 10%;
+    background: #ff8500;
+    border: none;
+    border-radius: 3px;
+    padding: 10px;
+}
+.albumFooter > button:hover{
+	background: #EA7B00;
+}
+
+/* #filterForm{
+    display: flex;
+    flex-wrap: wrap;
+    gap:10px;
+    padding: 10px;
+}
+.formItem{
+	display: flex;
+	flex-direction: column;
+    justify-content: center;
+}
+.formItem > textarea, select, input{
+	border: 2px solid #EA7B00;
+ 	border-radius: 4px;
+	font-size: 1rem;
+	padding: 0.5rem;
+	transition: 0.6s
+}
+.formItem > button{
+	border: none;
+	padding: 10px;
+	background: #FF8500;
+	color: #fff;
+	border-radius: 3px;
+    min-width: 10%;
+}
+.formItem > button:hover{
+	background: #EA7B00;
+} */
+
+
