@@ -6,33 +6,55 @@ var photoIterator;
 
 var currentPhotoEl;
 
-function next() {
-    photoIterator++;
-    // console.log(photoIterator);
-    if(photoIterator >= album.length){
-        photoIterator = 0;
-        currentPhotoEl.src = album[photoIterator].url;
-        currentPhotoEl.title = album[photoIterator].title;
-    }
-    else{
-        currentPhotoEl.src = album[photoIterator].url;
-        currentPhotoEl.title = album[photoIterator].title;
+function iteratorHandler(handler) {
+    currentPhotoEl.classList.add('photoShakeAnimation');
+    handler(photoIterator)
+    currentPhotoEl.src = album[photoIterator].url;
+    currentPhotoEl.title = album[photoIterator].title;
+    setTimeout(() =>{
+        currentPhotoEl.classList.remove('photoShakeAnimation');
+    },500)
+    idlePhotoChange();
+}
+
+const next = () => {
+    iteratorHandler(() => {
+        photoIterator++;
+        if(photoIterator >= album.length){
+            photoIterator = 0;
+        }
+    })
+}
+const previous = () => {
+    iteratorHandler(() => {
+        photoIterator--;
+        if(photoIterator < 0){
+            photoIterator = album.length;
+        }
+    })
+}
+
+
+
+
+function idlePhotoChange() {
+    console.log('miasto poznań')
+    let t;
+    window.onload = resetTimer;
+    window.onmousemove = resetTimer;
+    window.onmousedown = resetTimer;     
+    window.ontouchstart = resetTimer;  
+    window.ontouchmove = resetTimer;  
+    window.onclick = resetTimer;      
+    window.onkeydown = resetTimer;   
+    window.addEventListener('scroll', resetTimer, true);
+
+    function resetTimer(e) {
+        clearTimeout(t);
+        t = setTimeout(next, 500);
     }
 }
 
-function previous() {
-    photoIterator--;
-    // console.log(photoIterator);
-    if(photoIterator < 0){
-        photoIterator = album.length - 1;
-        currentPhotoEl.src = album[photoIterator].url;
-        currentPhotoEl.title = album[photoIterator].title;
-    }
-    else{
-        currentPhotoEl.src = album[photoIterator].url
-        currentPhotoEl.title = album[photoIterator].title;
-    }
-}
 
 export async function buildPhotos(albumId){
     album = await getPhotosOfGivenAlbum(albumId);
@@ -55,7 +77,7 @@ export async function buildPhotos(albumId){
     main.appendChild(slider);
     let navigationLeft = document.createElement('div');
     navigationLeft.id = 'nLeft';
-    navigationLeft.classList = 'navigation';
+    navigationLeft.classList.add('navigation');
     slider.appendChild(navigationLeft);
     let photoBox = document.createElement('img');
     photoBox.id = 'photoBox';
@@ -64,7 +86,7 @@ export async function buildPhotos(albumId){
     slider.appendChild(photoBox);
     let navigationRight = document.createElement('div');
     navigationRight.id = 'nRight';
-    navigationRight.classList = 'navigation';
+    navigationRight.classList.add('navigation');
     slider.appendChild(navigationRight);
     navigationLeft.addEventListener('click', previous);
     document.addEventListener('keydown', (e) => {
@@ -77,4 +99,5 @@ export async function buildPhotos(albumId){
     });
     navigationRight.addEventListener('click', next);
     currentPhotoEl = document.getElementById('photoBox');
+    idlePhotoChange();
 }

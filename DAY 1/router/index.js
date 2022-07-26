@@ -3,10 +3,13 @@ import { buildForm } from '../js/form.js'
 import { buildPostsFoundation } from '../js/postsData.js'
 import { buildAlbumsFoundation } from '../js/albums.js'
 import { buildMain } from '../js/mainPage.js'
+import { buildPhotos } from '../js/photos.js'
 import l from '../js/loading.js'
 
 
 const app = document.getElementById('app');
+
+const albumsReg = /albums\/(\d+)\//;
 
 function buildError() {
     app.innerHTML = '<h1>404 Podany adres nie istnieje</h1>';
@@ -14,6 +17,7 @@ function buildError() {
 
 window.addEventListener('popstate', () => {
     l.loading(app);
+    routeToPhotos =  window.location.pathname.match(albumsReg);
     if(window.location.pathname === '/'){
         app.innerHTML = '';
         buildMain();
@@ -25,6 +29,10 @@ window.addEventListener('popstate', () => {
     else if(window.location.pathname === '/albums'){
         app.innerHTML = '';
         buildAlbumsFoundation();
+    }
+    else if(window.location.pathname === `/albums/${routeToPhotos[1]}/photos`){
+        app.innerHTML = '';
+        buildPhotos(routeToPhotos[1]);
     }
     else if(window.location.pathname === '/userForm'){
         app.innerHTML = '';
@@ -39,6 +47,7 @@ window.addEventListener('popstate', () => {
 
 window.addEventListener('load', () => {
     l.loading(app);
+    routeToPhotos =  window.location.pathname.match(albumsReg);
     if(window.location.pathname === '/'){
         buildMain();
     }
@@ -47,6 +56,10 @@ window.addEventListener('load', () => {
     }
     else if(window.location.pathname === '/albums'){
         buildAlbumsFoundation();
+    }
+    else if(window.location.pathname === `/albums/${routeToPhotos[1]}/photos`){
+        app.innerHTML = '';
+        buildPhotos(routeToPhotos[1]);
     }
     else if(window.location.pathname === '/userForm'){
         buildForm();
