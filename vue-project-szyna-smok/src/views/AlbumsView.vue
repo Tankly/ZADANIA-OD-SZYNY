@@ -11,7 +11,7 @@ import MainHeader from "@/components/MainHeader.vue";
 export default {
   data() {
     return {
-      headerText: "Strona główna",
+      headerText: "Albumy",
     };
   },
   components: {

@@ -7,11 +7,12 @@
 
 <script>
 import MainHeader from "@/components/MainHeader.vue";
+import { getPostsData, getPostComments } from "@/api.js";
 
 export default {
   data() {
     return {
-      headerText: "Strona główna",
+      headerText: "Posty",
     };
   },
   components: {

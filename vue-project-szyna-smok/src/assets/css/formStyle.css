@@ -1,0 +1,50 @@
+
+.formItem{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+.formContainer{
+	display: flex;
+	justify-content: center;
+}
+#userForm{
+	width: 30%;
+	padding: 20px;
+	display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.formItem > textarea, select, input{
+	border: 2px solid #EA7B00;
+ 	border-radius: 4px;
+	font-size: 1rem;
+	padding: 0.5rem;
+	transition: 0.6s
+}
+form > button{
+	border: none;
+	padding: 10px;
+	background: #FF8500;
+	color: #fff;
+	border-radius: 3px;
+}
+form > button:hover{
+	background: #EA7B00;
+}
+#output{
+	display: flex;
+	justify-content: center;
+	margin: 10px;
+}
+#output > div{
+
+	background-color: #F2A655;
+	border-radius: 3px;
+	color: white;
+	padding: 6px;
+}
+.wrongInput{
+	border: 2px solid red !important;
+	background-color: rgba(255,0,0,0.1);
+}

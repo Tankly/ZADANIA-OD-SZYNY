@@ -1,0 +1,89 @@
+#postsMain{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    /* margin-top:10px; */
+}
+#postsContainer{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: auto;
+    position: relative;
+}
+.post{
+    border: 2px solid #EA7B00;
+ 	border-radius: 4px;
+	font-size: 1rem;
+	padding: 0.5rem;
+    transition: all 1s;
+    overflow: hidden;
+    max-height: 250px;
+}
+
+/* .postWithComments{
+    max-height: 100vh;
+} */
+
+.post > h2{
+    border-bottom: 2px solid #55C8F2;
+}
+
+.post > p, span, h2{
+    padding: 5px;
+}
+
+.postFooter > button {
+    color: #fff;
+    min-width: 10%;
+    background: #ff8500;
+    border: none;
+    border-radius: 3px;
+    padding: 10px;
+}
+
+#filterForm{
+    display: flex;
+    flex-wrap: wrap;
+    gap:10px;
+    padding: 10px;
+}
+.formItem{
+	display: flex;
+	flex-direction: column;
+    justify-content: center;
+}
+.formItem > textarea, select, input{
+	border: 2px solid #EA7B00;
+ 	border-radius: 4px;
+	font-size: 1rem;
+	padding: 0.5rem;
+	transition: 0.6s
+}
+.formItem > button{
+	border: none;
+	padding: 10px;
+	background: #FF8500;
+	color: #fff;
+	border-radius: 3px;
+    min-width: 10%;
+}
+.formItem > button:hover{
+	background: #EA7B00;
+}
+.postFooter{
+    display: flex;
+    justify-content: space-between;
+}
+.commentsContainer{
+    /* background-color: lightgrey; */
+    margin-top: 1em;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+.commentDiv{
+    border-bottom: 2px solid #55C8F2;
+}
