@@ -1,0 +1,1 @@
+przepisz cały projekt z vanila js na vue
