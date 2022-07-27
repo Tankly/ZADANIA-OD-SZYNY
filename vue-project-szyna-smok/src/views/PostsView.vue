@@ -24,7 +24,7 @@ export default {
           label: "Autor:",
           defaultValue: "",
           filterKey: "userId",
-          type: "input",
+          type: "FormInput",
           inputType: "number",
         },
         title: {
@@ -32,7 +32,7 @@ export default {
           label: "Tytuł:",
           defaultValue: "",
           filterKey: "title",
-          type: "input",
+          type: "FormInput",
           inputType: "text",
         },
         content: {
@@ -40,14 +40,14 @@ export default {
           label: "Treść:",
           defaultValue: "",
           filterKey: "body",
-          type: "input",
+          type: "FormInput",
           inputType: "text",
         },
         sortBy: {
           name: "sortBy",
           label: "Sortowanie po:",
           defaultValue: "userId",
-          type: "select",
+          type: "FormSelect",
           selectOptions: ["userId", "title", "body"],
           textForOptions: ["Autor", "Tytuł", "Treść"],
         },
@@ -55,27 +55,27 @@ export default {
           name: "sortDirection",
           label: "Sposób sortowania:",
           defaultValue: "asc",
-          type: "select",
+          type: "FormSelect",
           selectOptions: ["asc", "desc"],
           textForOptions: ["Rosnąco", "Malejąco"],
         },
         filter: {
-          type: "button",
-          id: "filter",
+          type: "FormBtn",
+          name: "filter",
           content: "Filtruj",
           btnFunction: async () => {
-            let filteredPosts = await filter("posts");
-            postBuilder(filteredPosts);
-            saveFilterSettings();
+            // let filteredPosts = await filter("posts");
+            // postBuilder(filteredPosts);
+            // saveFilterSettings();
           },
         },
         clean: {
-          type: "button",
-          id: "clean",
+          type: "FormBtn",
+          name: "clean",
           content: "Wyczyść",
           btnFunction: async () => {
-            clean();
-            await postsData();
+            // clean();
+            // await postsData();
           },
         },
       },
@@ -87,8 +87,8 @@ export default {
     MainFilter,
     BuildPost,
   },
-  async created(){
+  async created() {
     this.postsData = await getPostsData();
-  }
+  },
 };
 </script>

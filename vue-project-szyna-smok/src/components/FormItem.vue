@@ -1,18 +1,18 @@
 <template>
-  <div class="formItem">
-    <label :for="inputData.name">{{ inputData.label }}</label>
-    <component
-      :is="inputData.type"
-      :id="inputData.name"
-      :type="inputData.inputType"
-      :name="inputData.name"
-      :value="inputData.defaultValue"
-    />
-  </div>
+  <component :is="inputData.type" :input="inputData" />
 </template>
 
 <script>
+import FormInput from "./FormInput.vue";
+import FormSelect from "./FormSelect.vue";
+import FormBtn from "./FormBtn.vue";
+
 export default {
   props: ["inputData"],
+  components: {
+    FormInput,
+    FormSelect,
+    FormBtn,
+  },
 };
 </script>
