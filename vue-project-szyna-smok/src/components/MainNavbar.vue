@@ -15,6 +15,12 @@
 
 <script>
 export default {
-  props: ["pages"],
+  props: {
+    pages: {
+      type: Object,
+      required: true,
+      default: Object,
+    },
+  },
 };
 </script>

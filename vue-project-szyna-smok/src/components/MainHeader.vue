@@ -6,6 +6,13 @@
 
 <script>
 export default {
-  props: ["headerText"],
+  // props: ["headerText"],
+  props: {
+    headerText: {
+      type: String,
+      required: true,
+      default: String,
+    },
+  },
 };
 </script>

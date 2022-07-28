@@ -8,7 +8,13 @@ import FormSelect from "./FormSelect.vue";
 import FormBtn from "./FormBtn.vue";
 
 export default {
-  props: ["inputData"],
+  props: {
+    inputData: {
+      type: Object,
+      required: true,
+      default: Object,
+    },
+  },
   components: {
     FormInput,
     FormSelect,

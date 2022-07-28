@@ -12,7 +12,7 @@
 import MainHeader from "@/components/MainHeader.vue";
 import { getPostsData } from "@/api.js";
 import MainFilter from "@/components/MainFilter.vue";
-import BuildPost from "@/components/BuildPost.vue";
+import BuildPost from "@/components/BuildPosts.vue";
 
 export default {
   data() {
