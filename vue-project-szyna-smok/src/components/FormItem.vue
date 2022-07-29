@@ -1,5 +1,13 @@
 <template>
-  <component :is="inputData.type" :input="inputData" />
+  <component
+    @set="
+      (...v) => {
+        $emit('set', ...v);
+      }
+    "
+    :is="inputData.type"
+    :input="inputData"
+  />
 </template>
 
 <script>

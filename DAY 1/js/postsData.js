@@ -132,7 +132,7 @@ function buildPost(postToBuild){
         else{
             e.target.value = 'notClicked';
             document.getElementById(`${post.id}_comments`).remove();
-            document.getElementById(post.id).style.maxHeight = '250px';
+            document.getElementById(post.id).style.maxHeight = 'fit-content';
         }
     })
     

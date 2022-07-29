@@ -2,7 +2,9 @@
   <div class="pageContent">
     <MainHeader :headerText="headerText" />
     <main id="albumsMain">
-      <MainFilter :formInputs="formInputs" />
+      <MainFilter :formInputs="formInputs">
+        <button @click="aaaaaaaaaaaaaaaaaaa"></button>
+      </MainFilter>
       <BuildAlbums :albumsData="albumsData" />
     </main>
   </div>

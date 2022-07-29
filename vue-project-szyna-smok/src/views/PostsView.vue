@@ -59,6 +59,8 @@ export default {
           selectOptions: ["asc", "desc"],
           textForOptions: ["Rosnąco", "Malejąco"],
         },
+      },
+      btns: {
         filter: {
           type: "FormBtn",
           name: "filter",
