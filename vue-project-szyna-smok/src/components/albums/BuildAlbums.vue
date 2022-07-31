@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import AlbumBuilder from "@/components/AlbumBuilder.vue";
+import AlbumBuilder from "./AlbumBuilder.vue";
 
 export default {
   props: {

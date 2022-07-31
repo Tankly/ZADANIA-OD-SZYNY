@@ -5,6 +5,7 @@
       <MainFilter :formInputs="formInputs">
         <button @click="aaaaaaaaaaaaaaaaaaa"></button>
       </MainFilter>
+      <LoadingComponent :loading="loading" />
       <BuildAlbums :albumsData="albumsData" />
     </main>
   </div>
@@ -13,11 +14,13 @@
 import MainHeader from "@/components/MainHeader.vue";
 import { getAlbums } from "@/api.js";
 import MainFilter from "@/components/MainFilter.vue";
-import BuildAlbums from "@/components/BuildAlbums.vue";
+import BuildAlbums from "@/components/albums/BuildAlbums.vue";
+import LoadingComponent from "@/components/LoadingComponent.vue";
 
 export default {
   data() {
     return {
+      loading: true,
       albumsData: {},
       headerText: "Albumy",
       formInputs: {
@@ -79,9 +82,11 @@ export default {
     MainHeader,
     MainFilter,
     BuildAlbums,
+    LoadingComponent,
   },
   async created() {
     this.albumsData = await getAlbums();
+    this.loading = false;
   },
 };
 </script>

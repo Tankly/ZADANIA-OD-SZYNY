@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import FormItem from "@/components/FormItem.vue";
+import FormItem from "@/components/form/FormItem.vue";
 
 export default {
   props: {

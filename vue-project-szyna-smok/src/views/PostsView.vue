@@ -2,6 +2,7 @@
   <div class="pageContent">
     <MainHeader :headerText="headerText" />
     <main id="postsMain">
+      <LoadingComponent :loading="loading" />
       <MainFilter :formInputs="formInputs" />
       <BuildPost :postsData="postsData" />
     </main>
@@ -12,11 +13,13 @@
 import MainHeader from "@/components/MainHeader.vue";
 import { getPostsData } from "@/api.js";
 import MainFilter from "@/components/MainFilter.vue";
-import BuildPost from "@/components/BuildPosts.vue";
+import BuildPost from "@/components/posts/BuildPosts.vue";
+import LoadingComponent from "../components/LoadingComponent.vue";
 
 export default {
   data() {
     return {
+      loading: true,
       postsData: {},
       formInputs: {
         author: {
@@ -88,9 +91,11 @@ export default {
     MainHeader,
     MainFilter,
     BuildPost,
+    LoadingComponent,
   },
   async created() {
     this.postsData = await getPostsData();
+    this.loading = false;
   },
 };
 </script>

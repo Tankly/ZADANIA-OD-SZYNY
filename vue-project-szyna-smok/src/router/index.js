@@ -27,6 +27,16 @@ const router = createRouter({
       name: "albums",
       component: () => import("@/views/AlbumsView.vue"),
     },
+    {
+      path: "/albums/:albumId/photos",
+      name: "photos",
+      component: () => import("@/views/PhotosView.vue"),
+    },
+    {
+      path: "/:pathMatch(.*)*",
+      name: "404",
+      component: () => import("@/views/PageNotFound.vue"),
+    },
   ],
 });
 
