@@ -2,9 +2,9 @@
   <div class="pageContent">
     <MainHeader :headerText="headerText" />
     <main id="postsMain">
-      <LoadingComponent :loading="loading" />
       <MainFilter :formInputs="formInputs" />
-      <BuildPost :postsData="postsData" />
+      <BuildPost :postsData="postsData" v-if="postsData" />
+      <LoadingComponent v-else />
     </main>
   </div>
 </template>
@@ -19,8 +19,7 @@ import LoadingComponent from "../components/LoadingComponent.vue";
 export default {
   data() {
     return {
-      loading: true,
-      postsData: {},
+      postsData: null,
       formInputs: {
         author: {
           name: "author",
@@ -95,7 +94,6 @@ export default {
   },
   async created() {
     this.postsData = await getPostsData();
-    this.loading = false;
   },
 };
 </script>

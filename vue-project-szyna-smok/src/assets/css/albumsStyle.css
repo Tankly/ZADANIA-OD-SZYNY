@@ -25,7 +25,7 @@
     transition: all 1s;
     width: 25%;
     overflow: hidden;
-    max-height: 250px;
+    /* max-height: 250px; */
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -48,7 +48,7 @@
     display: flex;
     justify-content: space-between;
 }
-.albumFooter > button {
+.albumButton {
     color: #fff;
     min-width: 10%;
     background: #ff8500;
@@ -56,7 +56,7 @@
     border-radius: 3px;
     padding: 10px;
 }
-.albumFooter > button:hover{
+.albumButton:hover{
 	background: #EA7B00;
 }
 

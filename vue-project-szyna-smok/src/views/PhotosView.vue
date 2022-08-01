@@ -2,8 +2,8 @@
   <div class="pageContent">
     <MainHeader :headerText="headerText + $route.params.albumId" />
     <main id="photosMain">
-      <LoadingComponent :loading="loading" />
-      <BuildPhotos :photos="photos" />
+      <BuildPhotos :photos="photos" v-if="photos" />
+      <LoadingComponent v-else />
     </main>
   </div>
 </template>
@@ -17,9 +17,8 @@ import LoadingComponent from "@/components/LoadingComponent.vue";
 export default {
   data() {
     return {
-      loading: true,
       headerText: "Zdjęcia z albumu numer ",
-      photos: {},
+      photos: null,
     };
   },
   components: {
@@ -29,7 +28,6 @@ export default {
   },
   async created() {
     this.photos = await getPhotosOfGivenAlbum(this.$route.params.albumId);
-    this.loading = false;
   },
 };
 </script>
