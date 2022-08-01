@@ -5,8 +5,8 @@
       <MainFilter :formInputs="formInputs">
         <button @click="aaaaaaaaaaaaaaaaaaa"></button>
       </MainFilter>
-      <LoadingComponent :loading="loading" />
-      <BuildAlbums :albumsData="albumsData" />
+      <BuildAlbums :albumsData="albumsData" v-if="albumsData" />
+      <LoadingComponent v-else />
     </main>
   </div>
 </template>
@@ -20,8 +20,7 @@ import LoadingComponent from "@/components/LoadingComponent.vue";
 export default {
   data() {
     return {
-      loading: true,
-      albumsData: {},
+      albumsData: null,
       headerText: "Albumy",
       formInputs: {
         author: {
@@ -86,7 +85,6 @@ export default {
   },
   async created() {
     this.albumsData = await getAlbums();
-    this.loading = false;
   },
 };
 </script>

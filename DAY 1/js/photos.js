@@ -14,12 +14,13 @@ function iteratorHandler(handler) {
     setTimeout(() =>{
         currentPhotoEl.classList.remove('photoShakeAnimation');
     },500)
-    idlePhotoChange();
+    // idlePhotoChange();
 }
 
 const next = () => {
     iteratorHandler(() => {
         photoIterator++;
+        console.log(photoIterator);
         if(photoIterator >= album.length){
             photoIterator = 0;
         }
@@ -38,7 +39,6 @@ const previous = () => {
 
 
 function idlePhotoChange() {
-    console.log('miasto poznań')
     let t;
     window.onload = resetTimer;
     window.onmousemove = resetTimer;
@@ -99,5 +99,5 @@ export async function buildPhotos(albumId){
     });
     navigationRight.addEventListener('click', next);
     currentPhotoEl = document.getElementById('photoBox');
-    idlePhotoChange();
+    // idlePhotoChange();
 }

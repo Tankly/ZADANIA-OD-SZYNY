@@ -14,6 +14,7 @@ import UserFrom from "@/components/UserFrom.vue";
 export default {
   data() {
     return {
+      invalid: false,
       headerText: "Formularz",
       formInputs: {
         name: {

@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
+import { getAlbums } from "@/api.js";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -31,6 +32,15 @@ const router = createRouter({
       path: "/albums/:albumId/photos",
       name: "photos",
       component: () => import("@/views/PhotosView.vue"),
+      props: (route) => ({
+        ...route.params,
+        albumId: parseInt(route.params.albumId),
+      }),
+      async beforeEnter(to) {
+        let album = await getAlbums();
+        const exists = album.find((album) => album.id == to.params.albumId);
+        if (!exists) return { name: "404" };
+      },
     },
     {
       path: "/:pathMatch(.*)*",
