@@ -3,6 +3,11 @@
     <MainHeader :headerText="headerText" />
     <main>
       <UserFrom :formInputs="formInputs" />
+      <FormAlert
+        v-if="invalid"
+        v-model:invalid="invalid"
+        :invalidInputs="invalidInputs"
+      />
     </main>
   </div>
 </template>
@@ -10,11 +15,13 @@
 <script>
 import MainHeader from "@/components/MainHeader.vue";
 import UserFrom from "@/components/UserFrom.vue";
+import FormAlert from "../components/form/FormAlert.vue";
 
 export default {
   data() {
     return {
-      invalid: false,
+      invalid: true,
+      invalidInputs: null,
       headerText: "Formularz",
       formInputs: {
         name: {
@@ -77,6 +84,7 @@ export default {
   components: {
     MainHeader,
     UserFrom,
+    FormAlert,
   },
 };
 </script>

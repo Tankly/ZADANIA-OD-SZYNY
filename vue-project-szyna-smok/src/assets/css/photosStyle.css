@@ -19,6 +19,7 @@
     border: 2.5vw solid;
     border-color: #1980A6 transparent transparent #1980A6;
     transition: 0.6s;
+    cursor: pointer;
 }
 
 .navigation:hover{

@@ -31,3 +31,14 @@ header{
     width: 100%;
     display: flex;
 }
+
+#notFound{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2em;
+}
+
+button{
+    cursor: pointer;
+}

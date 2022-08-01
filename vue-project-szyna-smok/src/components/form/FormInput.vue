@@ -11,6 +11,7 @@
         }
       "
       :disabled="input.disabled"
+      :maxlength="input.maxLength"
     />
   </div>
 </template>
