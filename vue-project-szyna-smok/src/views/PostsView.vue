@@ -2,7 +2,11 @@
   <div class="pageContent">
     <MainHeader :headerText="headerText" />
     <main id="postsMain">
-      <MainFilter :formInputs="formInputs" />
+      <MainFilter
+        :formInputs="formInputs"
+        :btns="btns"
+        v-model:inputsData="inputsData"
+      />
       <BuildPost :postsData="postsData" v-if="postsData" />
       <LoadingComponent v-else />
     </main>
@@ -19,6 +23,7 @@ import LoadingComponent from "../components/LoadingComponent.vue";
 export default {
   data() {
     return {
+      inputsData: {},
       postsData: null,
       formInputs: {
         author: {
@@ -68,6 +73,9 @@ export default {
           name: "filter",
           content: "Filtruj",
           btnFunction: async () => {
+            this.postsData = null;
+            this.postsData = await getPostsData();
+            this.useFilter();
             // let filteredPosts = await filter("posts");
             // postBuilder(filteredPosts);
             // saveFilterSettings();
@@ -80,6 +88,10 @@ export default {
           btnFunction: async () => {
             // clean();
             // await postsData();
+            document.forms["filterForm"].reset();
+            this.inputsData = {};
+            this.postsData = null;
+            this.postsData = await getPostsData();
           },
         },
       },
@@ -94,6 +106,24 @@ export default {
   },
   async created() {
     this.postsData = await getPostsData();
+  },
+  methods: {
+    useFilter() {
+      console.log(this.inputsData);
+      for (let input in this.inputsData) {
+        console.log(input);
+        let type = this.formInputs[input].inputType;
+        let key = this.formInputs[input].filterKey;
+        console.log("key: ", key, "type: ", type);
+        if (type == "text") {
+          console.log(this.inputsData[input]);
+          this.postsData = this.postsData.filter(() => {
+            console.log(key.indexOf(this.inputsData[input]));
+            return key.indexOf(this.inputsData[input]) !== -1;
+          });
+        }
+      }
+    },
   },
 };
 </script>

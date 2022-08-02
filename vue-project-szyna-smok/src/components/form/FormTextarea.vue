@@ -6,6 +6,11 @@
       :rows="input.textArea[0]"
       :cols="input.textArea[1]"
       :placeholder="input.placeholder"
+      @input="
+        (e) => {
+          $emit('update:modelValue', e.target.value);
+        }
+      "
     />
   </div>
 </template>

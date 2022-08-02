@@ -2,7 +2,7 @@
   <div class="pageContent">
     <MainHeader :headerText="headerText" />
     <main id="albumsMain">
-      <MainFilter :formInputs="formInputs">
+      <MainFilter :formInputs="formInputs" :btns="btns">
         <button @click="aaaaaaaaaaaaaaaaaaa"></button>
       </MainFilter>
       <BuildAlbums :albumsData="albumsData" v-if="albumsData" />
@@ -55,13 +55,15 @@ export default {
           selectOptions: ["asc", "desc"],
           textForOptions: ["Rosnąco", "Malejąco"],
         },
+      },
+      btns: {
         filter: {
           type: "FormBtn",
           name: "filter",
           content: "Filtruj",
           btnFunction: async () => {
-            // let filteredAlbums = await filter("albums");
-            // albumsBuilder(filteredPosts);
+            // let filteredPosts = await filter("posts");
+            // postBuilder(filteredPosts);
             // saveFilterSettings();
           },
         },
@@ -71,7 +73,10 @@ export default {
           content: "Wyczyść",
           btnFunction: async () => {
             // clean();
-            // await albumsData();
+            // await postsData();
+            document.forms["filterForm"].reset();
+            this.albumsData = null;
+            this.albumsData = await getAlbums();
           },
         },
       },

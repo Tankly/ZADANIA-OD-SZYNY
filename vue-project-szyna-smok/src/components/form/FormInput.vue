@@ -4,10 +4,11 @@
     <input
       :type="input.inputType"
       :name="input.name"
+      :value="modelValue"
       :id="input.name"
       @input="
         (e) => {
-          $emit('change', input.name, e.target.value);
+          $emit('update:modelValue', e.target.value);
         }
       "
       :disabled="input.disabled"
@@ -22,6 +23,11 @@ export default {
     input: {
       type: Object,
       required: true,
+    },
+    modelValue: {
+      type: [String, Number, null],
+      required: true,
+      default: null,
     },
   },
 };
