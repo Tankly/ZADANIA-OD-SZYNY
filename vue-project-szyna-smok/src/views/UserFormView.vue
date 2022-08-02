@@ -2,7 +2,11 @@
   <div class="pageContent">
     <MainHeader :headerText="headerText" />
     <main>
-      <UserFrom :formInputs="formInputs" />
+      <UserFrom
+        :formInputs="formInputs"
+        :btns="btns"
+        v-model:inputsData="inputsData"
+      />
       <FormAlert
         v-if="invalid"
         v-model:invalid="invalid"
@@ -20,7 +24,8 @@ import FormAlert from "../components/form/FormAlert.vue";
 export default {
   data() {
     return {
-      invalid: true,
+      inputsData: {},
+      invalid: false,
       invalidInputs: null,
       headerText: "Formularz",
       formInputs: {
@@ -77,6 +82,8 @@ export default {
           textForOptions: ["Wybierz płeć", "Mężczyzna", "Kobieta"],
           disabled: "true",
         },
+      },
+      btns: {
         sendForm: { type: "FormBtn", name: "sendForm", content: "zapisz" },
       },
     };

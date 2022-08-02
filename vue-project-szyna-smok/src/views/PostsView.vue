@@ -23,7 +23,7 @@ import LoadingComponent from "../components/LoadingComponent.vue";
 export default {
   data() {
     return {
-      inputsData: {},
+      inputsData: { sortDirection: "asc", sortBy: "userId" },
       postsData: null,
       formInputs: {
         author: {
@@ -76,9 +76,6 @@ export default {
             this.postsData = null;
             this.postsData = await getPostsData();
             this.useFilter();
-            // let filteredPosts = await filter("posts");
-            // postBuilder(filteredPosts);
-            // saveFilterSettings();
           },
         },
         clean: {
@@ -86,10 +83,8 @@ export default {
           name: "clean",
           content: "Wyczyść",
           btnFunction: async () => {
-            // clean();
-            // await postsData();
             document.forms["filterForm"].reset();
-            this.inputsData = {};
+            this.inputsData = { sortDirection: "asc", sortBy: "userId" };
             this.postsData = null;
             this.postsData = await getPostsData();
           },
@@ -109,17 +104,26 @@ export default {
   },
   methods: {
     useFilter() {
-      console.log(this.inputsData);
       for (let input in this.inputsData) {
-        console.log(input);
         let type = this.formInputs[input].inputType;
         let key = this.formInputs[input].filterKey;
-        console.log("key: ", key, "type: ", type);
         if (type == "text") {
-          console.log(this.inputsData[input]);
-          this.postsData = this.postsData.filter(() => {
-            console.log(key.indexOf(this.inputsData[input]));
-            return key.indexOf(this.inputsData[input]) !== -1;
+          this.postsData = this.postsData.filter((e) => {
+            return e[key].indexOf(this.inputsData[input]) !== -1;
+          });
+        } else if (type == "number") {
+          this.postsData = this.postsData.filter((e) => {
+            return e[key] == this.inputsData[input];
+          });
+        } else if (input == "sortDirection") {
+          let isDesc = this.inputsData[input] != "asc";
+          let sortBy = this.inputsData["sortBy"];
+          this.postsData.sort((a, b) => {
+            let greater = a[sortBy] >= b[sortBy];
+            if (isDesc) {
+              greater = !greater;
+            }
+            return greater ? 1 : -1;
           });
         }
       }

@@ -104,11 +104,13 @@ export async function useFilter(whatToFilter){
     }
     let filterKeys = [];
     for(let inputName in inputsFromPosts){
+        // console.log("1:: ", inputsFromPosts[inputName].filterKey)
         filterKeys[inputName] = form[inputName].value;
         if(form[inputName].type == 'text'){       
             if(!!filterKeys[inputName]){
                 // if(isNaN(filterKeys[inputName])){
                 postsWithFilter = postsWithFilter.filter((e) =>{
+                    // console.log("1:: ", e[inputsFromPosts[inputName].filterKey], "2:: ", form[inputName].value);
                     return e[inputsFromPosts[inputName].filterKey].indexOf(form[inputName].value) !== -1
                 })  
                 // }
@@ -129,6 +131,7 @@ export async function useFilter(whatToFilter){
         else if(inputName == 'sortDirection'){
             let isDesc = filterKeys[inputName] != 'asc'
             postsWithFilter.sort((a,b) =>{
+                // console.log(a[form['sortBy'].value]);
                 let greater = a[form['sortBy'].value] >= b[form['sortBy'].value]
                 if(isDesc) {
                     greater=!greater

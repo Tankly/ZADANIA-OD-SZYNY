@@ -3,7 +3,7 @@
     <h2>Post nr: {{ post.id }} <br />{{ post.title }}</h2>
     <p>{{ post.body }}</p>
     <div class="postFooter">
-      <span>Autor: {{ post.id }}</span>
+      <span>Autor: {{ post.userId }}</span>
       <button
         @click="
           () => {
