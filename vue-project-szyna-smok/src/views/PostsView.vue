@@ -107,24 +107,26 @@ export default {
       for (let input in this.inputsData) {
         let type = this.formInputs[input].inputType;
         let key = this.formInputs[input].filterKey;
-        if (type == "text") {
-          this.postsData = this.postsData.filter((e) => {
-            return e[key].indexOf(this.inputsData[input]) !== -1;
-          });
-        } else if (type == "number") {
-          this.postsData = this.postsData.filter((e) => {
-            return e[key] == this.inputsData[input];
-          });
-        } else if (input == "sortDirection") {
-          let isDesc = this.inputsData[input] != "asc";
-          let sortBy = this.inputsData["sortBy"];
-          this.postsData.sort((a, b) => {
-            let greater = a[sortBy] >= b[sortBy];
-            if (isDesc) {
-              greater = !greater;
-            }
-            return greater ? 1 : -1;
-          });
+        if (this.inputsData[input]) {
+          if (type == "text") {
+            this.postsData = this.postsData.filter((e) => {
+              return e[key].indexOf(this.inputsData[input]) !== -1;
+            });
+          } else if (type == "number") {
+            this.postsData = this.postsData.filter((e) => {
+              return e[key] == this.inputsData[input];
+            });
+          } else if (input == "sortDirection") {
+            let isDesc = this.inputsData[input] != "asc";
+            let sortBy = this.inputsData["sortBy"];
+            this.postsData.sort((a, b) => {
+              let greater = a[sortBy] >= b[sortBy];
+              if (isDesc) {
+                greater = !greater;
+              }
+              return greater ? 1 : -1;
+            });
+          }
         }
       }
     },

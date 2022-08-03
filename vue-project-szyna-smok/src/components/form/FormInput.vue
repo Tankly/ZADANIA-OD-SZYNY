@@ -6,11 +6,7 @@
       :name="input.name"
       :value="modelValue"
       :id="input.name"
-      @input="
-        (e) => {
-          $emit('update:modelValue', e.target.value);
-        }
-      "
+      @input="console"
       :disabled="input.disabled"
       :maxlength="input.maxLength"
     />
@@ -28,6 +24,12 @@ export default {
       type: [String, Number, null],
       required: true,
       default: null,
+    },
+  },
+  methods: {
+    console() {
+      this.$emit("test", "test");
+      console.log("poleciał");
     },
   },
 };

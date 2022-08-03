@@ -1,5 +1,6 @@
 <template>
   <div class="formItem">
+    <label :for="input.name">{{ input.label }}</label>
     <textarea
       :name="input.name"
       :id="input.name"
