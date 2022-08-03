@@ -2,13 +2,14 @@
   <div class="pageContent">
     <MainHeader :headerText="headerText" />
     <main id="albumsMain">
-      <MainFilter
+      <FormBuilder
         :formInputs="formInputs"
         :btns="btns"
+        :formInfo="formInfo"
         v-model:inputsData="inputsData"
       >
         <button @click="aaaaaaaaaaaaaaaaaaa"></button>
-      </MainFilter>
+      </FormBuilder>
       <BuildAlbums :albumsData="albumsData" v-if="albumsData" />
       <LoadingComponent v-else />
     </main>
@@ -17,7 +18,7 @@
 <script>
 import MainHeader from "@/components/MainHeader.vue";
 import { getAlbums } from "@/api.js";
-import MainFilter from "@/components/MainFilter.vue";
+import FormBuilder from "@/components/FormBuilder.vue";
 import BuildAlbums from "@/components/albums/BuildAlbums.vue";
 import LoadingComponent from "@/components/LoadingComponent.vue";
 
@@ -27,6 +28,10 @@ export default {
       inputsData: { sortDirection: "asc", sortBy: "userId" },
       albumsData: null,
       headerText: "Albumy",
+      formInfo: {
+        divId: "filterFormContainer",
+        formId: "filterForm",
+      },
       formInputs: {
         author: {
           name: "author",
@@ -88,7 +93,7 @@ export default {
   },
   components: {
     MainHeader,
-    MainFilter,
+    FormBuilder,
     BuildAlbums,
     LoadingComponent,
   },

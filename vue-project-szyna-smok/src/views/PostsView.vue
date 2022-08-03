@@ -2,9 +2,10 @@
   <div class="pageContent">
     <MainHeader :headerText="headerText" />
     <main id="postsMain">
-      <MainFilter
+      <FormBuilder
         :formInputs="formInputs"
         :btns="btns"
+        :formInfo="formInfo"
         v-model:inputsData="inputsData"
       />
       <BuildPost :postsData="postsData" v-if="postsData" />
@@ -16,7 +17,7 @@
 <script>
 import MainHeader from "@/components/MainHeader.vue";
 import { getPostsData } from "@/api.js";
-import MainFilter from "@/components/MainFilter.vue";
+import FormBuilder from "@/components/FormBuilder.vue";
 import BuildPost from "@/components/posts/BuildPosts.vue";
 import LoadingComponent from "../components/LoadingComponent.vue";
 
@@ -25,6 +26,10 @@ export default {
     return {
       inputsData: { sortDirection: "asc", sortBy: "userId" },
       postsData: null,
+      formInfo: {
+        divId: "filterFormContainer",
+        formId: "filterForm",
+      },
       formInputs: {
         author: {
           name: "author",
@@ -95,7 +100,7 @@ export default {
   },
   components: {
     MainHeader,
-    MainFilter,
+    FormBuilder,
     BuildPost,
     LoadingComponent,
   },

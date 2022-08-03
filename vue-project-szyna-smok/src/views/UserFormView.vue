@@ -2,9 +2,10 @@
   <div class="pageContent">
     <MainHeader :headerText="headerText" />
     <main>
-      <UserFrom
+      <FormBuilder
         :formInputs="formInputs"
         :btns="btns"
+        :formInfo="formInfo"
         v-model:inputsData="inputsData"
       />
       <FormAlert
@@ -19,7 +20,7 @@
 
 <script>
 import MainHeader from "@/components/MainHeader.vue";
-import UserFrom from "@/components/UserFrom.vue";
+import FormBuilder from "@/components/FormBuilder.vue";
 import FormAlert from "../components/form/FormAlert.vue";
 import FormOutput from "../components/form/FormOutput.vue";
 
@@ -31,20 +32,28 @@ export default {
       isFormDataSend: false,
       invalidInputs: {},
       headerText: "Formularz",
+      formInfo: {
+        divId: "formContainer",
+        formId: "userForm",
+      },
       formInputs: {
         name: {
           name: "name",
           label: "Imię",
           type: "FormInput",
           inputType: "text",
-          validationF: this.defaultValidation,
+          // validationF: this.defaultValidation,
+          validationF: [
+            (value) => !!value || "Required.",
+            (value) => (value && value.length >= 3) || "Min 3 characters",
+          ],
         },
         surname: {
           name: "surname",
           label: "Nazwisko",
           type: "FormInput",
           inputType: "text",
-          validationF: this.defaultValidation,
+          validationF: [this.defaultValidation],
         },
         pesel: {
           name: "pesel",
@@ -52,14 +61,14 @@ export default {
           type: "FormInput",
           inputType: "text",
           maxLength: "11",
-          validationF: this.peselValidation,
+          validationF: [this.peselValidation],
         },
         birthDate: {
           label: "Data urodzenia",
           type: "FormInput",
           inputType: "date",
           disabled: "true",
-          validationF: this.defaultValidation,
+          validationF: [this.defaultValidation],
         },
         age: {
           name: "age",
@@ -67,20 +76,24 @@ export default {
           type: "FormInput",
           inputType: "number",
           disabled: "true",
-          validationF: (value) => {
-            return value > 0 && /.+/.test(value);
-          },
+          validationF: [
+            (value) => {
+              return value > 0 && /.+/.test(value);
+            },
+          ],
         },
         email: {
           name: "email",
           label: "Email",
           type: "FormInput",
           inputType: "email",
-          validationF: (value) => {
-            let regForEmail =
-              /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
-            return regForEmail.test(value);
-          },
+          validationF: [
+            (value) => {
+              let regForEmail =
+                /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+              return regForEmail.test(value);
+            },
+          ],
         },
         details: {
           name: "details",
@@ -88,7 +101,7 @@ export default {
           type: "FormTextarea",
           textArea: [4, 50],
           placeholder: "Dodaj opis",
-          validationF: this.defaultValidation,
+          validationF: [this.defaultValidation],
         },
         gender: {
           name: "gender",
@@ -97,7 +110,7 @@ export default {
           selectOptions: ["default", "Mężczyzna", "Kobieta"],
           textForOptions: ["Wybierz płeć", "Mężczyzna", "Kobieta"],
           disabled: "true",
-          validationF: this.defaultValidation,
+          validationF: [this.defaultValidation],
         },
       },
       btns: {
@@ -118,7 +131,7 @@ export default {
   },
   components: {
     MainHeader,
-    UserFrom,
+    FormBuilder,
     FormAlert,
     FormOutput,
   },

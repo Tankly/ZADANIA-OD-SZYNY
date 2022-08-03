@@ -6,15 +6,23 @@
       :name="input.name"
       :value="modelValue"
       :id="input.name"
-      @input="console"
+      @input="validateAndSet"
+      @focusout="validateAndSet"
       :disabled="input.disabled"
       :maxlength="input.maxLength"
+      :class="{ wrongInput: reqMsg }"
     />
+    <span :class="{ wrongInputMsg: reqMsg }" v-if="reqMsg">{{ reqMsg }}</span>
   </div>
 </template>
 
 <script>
 export default {
+  data() {
+    return {
+      reqMsg: null,
+    };
+  },
   props: {
     input: {
       type: Object,
@@ -27,9 +35,22 @@ export default {
     },
   },
   methods: {
-    console() {
-      this.$emit("test", "test");
-      console.log("poleciał");
+    validateAndSet(e) {
+      const inputValue = e.target.value;
+      this.$emit("update:modelValue", inputValue);
+      let isValid;
+      if (this.input.validationF) {
+        for (const fun of this.input.validationF) {
+          isValid = fun(inputValue);
+          console.log(isValid);
+          if (typeof isValid === "string") {
+            this.reqMsg = isValid;
+            break;
+          } else {
+            this.reqMsg = null;
+          }
+        }
+      }
     },
   },
 };

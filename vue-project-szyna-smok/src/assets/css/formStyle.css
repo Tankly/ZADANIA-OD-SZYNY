@@ -4,7 +4,7 @@
 	flex-direction: column;
 	justify-content: center;
 }
-.formContainer{
+#formContainer{
 	display: flex;
 	justify-content: center;
 }
@@ -47,4 +47,9 @@ form > button:hover{
 .wrongInput{
 	border: 2px solid red !important;
 	background-color: rgba(255,0,0,0.1);
+}
+.wrongInputMsg{
+	font-size: 0.75em;
+	color: red;
+	animation: shake 1s;
 }

@@ -1,6 +1,6 @@
 <template>
-  <div class="formContainer">
-    <form id="userForm" name="userForm">
+  <div :id="formInfo.divId">
+    <form :id="formInfo.formId" :name="formInfo.formId">
       <component
         v-for="input in formInputs"
         :key="input"
@@ -37,6 +37,11 @@ export default {
       default: Object,
     },
     inputsData: {
+      type: Object,
+      required: true,
+      default: Object,
+    },
+    formInfo: {
       type: Object,
       required: true,
       default: Object,
