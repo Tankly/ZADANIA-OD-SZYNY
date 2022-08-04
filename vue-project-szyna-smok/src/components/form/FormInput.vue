@@ -42,7 +42,7 @@ export default {
       if (this.input.validationF) {
         for (const fun of this.input.validationF) {
           isValid = fun(inputValue);
-          console.log(isValid);
+          // console.log(isValid);
           if (typeof isValid === "string") {
             this.reqMsg = isValid;
             break;

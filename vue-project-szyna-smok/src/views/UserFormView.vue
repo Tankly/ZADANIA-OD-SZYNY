@@ -11,9 +11,13 @@
       <FormAlert
         v-if="invalid"
         v-model:invalid="invalid"
-        :invalidInputs="invalidInputs"
+        v-model:invalidInputs="invalidInputs"
       />
-      <FormOutput v-if="isFormDataSend" />
+      <FormOutput
+        v-if="isFormDataSend"
+        :inputsData="inputsData"
+        :formInputs="formInputs"
+      />
     </main>
   </div>
 </template>
@@ -27,10 +31,10 @@ import FormOutput from "../components/form/FormOutput.vue";
 export default {
   data() {
     return {
-      inputsData: {},
+      inputsData: { gender: "default" },
       invalid: false,
       isFormDataSend: false,
-      invalidInputs: {},
+      invalidInputs: ["Imię", "Nazwisko", "PESEL", "Email", "Opis"],
       headerText: "Formularz",
       formInfo: {
         divId: "formContainer",
@@ -43,10 +47,7 @@ export default {
           type: "FormInput",
           inputType: "text",
           // validationF: this.defaultValidation,
-          validationF: [
-            (value) => !!value || "Required.",
-            (value) => (value && value.length >= 3) || "Min 3 characters",
-          ],
+          validationF: [this.defaultValidation],
         },
         surname: {
           name: "surname",
@@ -61,9 +62,10 @@ export default {
           type: "FormInput",
           inputType: "text",
           maxLength: "11",
-          validationF: [this.peselValidation],
+          validationF: [this.defaultValidation, this.peselValidation],
         },
         birthDate: {
+          name: "birthDate",
           label: "Data urodzenia",
           type: "FormInput",
           inputType: "date",
@@ -76,24 +78,14 @@ export default {
           type: "FormInput",
           inputType: "number",
           disabled: "true",
-          validationF: [
-            (value) => {
-              return value > 0 && /.+/.test(value);
-            },
-          ],
+          validationF: [this.defaultValidation, this.ageValidation],
         },
         email: {
           name: "email",
           label: "Email",
           type: "FormInput",
           inputType: "email",
-          validationF: [
-            (value) => {
-              let regForEmail =
-                /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
-              return regForEmail.test(value);
-            },
-          ],
+          validationF: [this.defaultValidation, this.emailValidation],
         },
         details: {
           name: "details",
@@ -119,10 +111,23 @@ export default {
           name: "sendForm",
           content: "zapisz",
           btnFunction: () => {
-            if (this.formInputs.length !== this.inputsData) {
+            const wrongInputs = document.querySelectorAll(".wrongInput");
+            // console.log(wrongInputs);
+            if (wrongInputs.length != 0) {
+              for (let i = 0; wrongInputs.length > i; i++) {
+                const elName = wrongInputs[i].name;
+                this.invalidInputs.push(this.formInputs[elName].label);
+              }
+              this.invalid = true;
+            } else if (
+              Object.keys(this.formInputs).length !==
+              Object.keys(this.inputsData).length
+            ) {
               this.invalid = true;
             } else {
               this.isFormDataSend = true;
+              this.invalidInputs = [];
+              // console.log(this.inputsData);
             }
           },
         },
@@ -135,35 +140,18 @@ export default {
     FormAlert,
     FormOutput,
   },
-  // watch: {
-  //   "inputsData.pesel"(newPesel) {
-  //     let weights = "1379137913";
-  //     let checkSum = 0;
-  //     if (/^\d{11}$/.test(newPesel)) {
-  //       let i = 0;
-  //       let tempSum;
-  //       for (i; i < 10; i++) {
-  //         tempSum = newPesel[i] * weights[i];
-  //         tempSum = tempSum % 10;
-  //         checkSum += tempSum;
-  //       }
-  //       checkSum = checkSum % 10;
-  //       let finalCheck = 10 - checkSum;
-  //       if (finalCheck == newPesel[10]) {
-  //         console.log("aaaaa");
-  //         delete this.invalidInputs["PESEL"];
-  //         return true;
-  //       } else {
-  //         this.invalidInputs.pesel = "true";
-  //       }
-  //     } else {
-  //       this.invalidInputs["PESEL"] = "true";
-  //     }
-  //   },
-  // },
   methods: {
     defaultValidation(value) {
-      return /.+/.test(value);
+      return !!value || "To pole jest wymagane.";
+    },
+    ageValidation(value) {
+      return (!isNaN(value) && value > 0) || "Podaj dodatnią liczbę";
+    },
+    emailValidation(value) {
+      const regMail =
+        /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+      let isValid = regMail.test(value);
+      return isValid || "Podaj poprawny email";
     },
     peselValidation(value) {
       let weights = "1379137913";
@@ -176,11 +164,46 @@ export default {
           tempSum = tempSum % 10;
           checkSum += tempSum;
         }
+        this.useDatafromPesel(value);
         checkSum = checkSum % 10;
         let finalCheck = 10 - checkSum;
         if (finalCheck == value[10]) {
           return true;
+        } else {
+          return "Podaj poprawny pesel";
         }
+      } else {
+        return "Pesel musi miec 11 cyfr";
+      }
+    },
+    useDatafromPesel(value) {
+      const pesel = value;
+      const addZero = (num) => (num = "0" + num);
+      let birthMonth = 0;
+      let birthDay = 0;
+      let birthYear = 1900 + parseInt(pesel.slice(0, 2));
+      if (pesel[2] >= 2 && pesel[2] < 8) {
+        birthYear += Math.floor(pesel[2] / 2) * 100;
+      }
+      if (pesel[2] >= 8) {
+        birthYear -= 100;
+      }
+
+      birthMonth = parseInt((pesel[2] % 2) * 10) + parseInt(pesel[3]);
+      if (birthMonth < 10) {
+        birthMonth = addZero(birthMonth);
+      }
+      birthDay = pesel.slice(4, 6);
+      this.inputsData["birthDate"] = `${birthYear}-${birthMonth}-${birthDay}`;
+      let calculatedAge =
+        new Date(
+          new Date() - new Date(this.inputsData["birthDate"])
+        ).getFullYear() - 1970;
+      this.inputsData["age"] = calculatedAge;
+      if (value[9] % 2 === 0) {
+        this.inputsData["gender"] = "Kobieta";
+      } else {
+        this.inputsData["gender"] = "Mężczyzna";
       }
     },
   },

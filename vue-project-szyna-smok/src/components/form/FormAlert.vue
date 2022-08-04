@@ -2,7 +2,10 @@
   <div id="alertContainer">
     <div id="alertBox">
       <h1>Błędnie wypełniony formularz</h1>
-      <p>Sprawdź proszę pole: {{ invalidInputs }}</p>
+      <p>
+        Sprawdź proszę pole:
+        <span v-for="input in invalidInputs" :key="input">{{ input }},</span>
+      </p>
       <button id="closeButton" @click="close()">OK</button>
     </div>
   </div>
@@ -12,8 +15,8 @@
 export default {
   props: {
     invalidInputs: {
-      type: String,
-      default: String,
+      type: Array,
+      default: Array,
       required: true,
     },
     invalid: {
@@ -22,10 +25,11 @@ export default {
       required: true,
     },
   },
-  emits: ["update:invalid"],
+  emits: ["update:invalid", "update:invalidInputs"],
   methods: {
     close() {
       this.$emit("update:invalid", false);
+      this.$emit("update:invalidInputs", []);
     },
   },
 };
