@@ -8,7 +8,6 @@
         :formInfo="formInfo"
         v-model:inputsData="inputsData"
       >
-        <button @click="aaaaaaaaaaaaaaaaaaa"></button>
       </FormBuilder>
       <BuildAlbums :albumsData="albumsData" v-if="albumsData" />
       <LoadingComponent v-else />
@@ -99,8 +98,25 @@ export default {
   },
   async created() {
     this.albumsData = await getAlbums();
+    if (localStorage.getItem("albumsInputsValues")) {
+      try {
+        this.inputsData = JSON.parse(
+          localStorage.getItem("albumsInputsValues")
+        );
+      } catch (e) {
+        localStorage.removeItem("albumsInputsValues");
+      }
+    }
+    this.useFilter();
+  },
+  beforeUnmount() {
+    this.saveFilterSettings();
   },
   methods: {
+    saveFilterSettings() {
+      const parsed = JSON.stringify(this.inputsData);
+      localStorage.setItem("albumsInputsValues", parsed);
+    },
     useFilter() {
       for (let input in this.inputsData) {
         let type = this.formInputs[input].inputType;

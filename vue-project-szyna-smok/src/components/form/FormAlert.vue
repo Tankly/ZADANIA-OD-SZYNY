@@ -3,8 +3,8 @@
     <div id="alertBox">
       <h1>Błędnie wypełniony formularz</h1>
       <p>
-        Sprawdź proszę pole:
-        <span v-for="input in invalidInputs" :key="input">{{ input }},</span>
+        Sprawdź proszę pole: {{ alertMsg }}
+        <!-- <span v-for="input in invalidInputs" :key="input">{{ input }},</span> -->
       </p>
       <button id="closeButton" @click="close()">OK</button>
     </div>
@@ -13,6 +13,11 @@
 
 <script>
 export default {
+  data() {
+    return {
+      alertMsg: "",
+    };
+  },
   props: {
     invalidInputs: {
       type: Array,
@@ -24,6 +29,11 @@ export default {
       default: Boolean,
       required: true,
     },
+  },
+  created() {
+    for (const input in this.invalidInputs) {
+      this.alertMsg += this.invalidInputs[input] + " ";
+    }
   },
   emits: ["update:invalid", "update:invalidInputs"],
   methods: {

@@ -106,8 +106,23 @@ export default {
   },
   async created() {
     this.postsData = await getPostsData();
+    if (localStorage.getItem("postsInputsValues")) {
+      try {
+        this.inputsData = JSON.parse(localStorage.getItem("postsInputsValues"));
+      } catch (e) {
+        localStorage.removeItem("postsInputsValues");
+      }
+    }
+    this.useFilter();
+  },
+  beforeUnmount() {
+    this.saveFilterSettings();
   },
   methods: {
+    saveFilterSettings() {
+      const parsed = JSON.stringify(this.inputsData);
+      localStorage.setItem("postsInputsValues", parsed);
+    },
     useFilter() {
       for (let input in this.inputsData) {
         let type = this.formInputs[input].inputType;

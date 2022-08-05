@@ -15,7 +15,7 @@
       />
       <FormOutput
         v-if="isFormDataSend"
-        :inputsData="inputsData"
+        :inputsData="innputsDataForOutputMsg"
         :formInputs="formInputs"
       />
     </main>
@@ -32,6 +32,7 @@ export default {
   data() {
     return {
       inputsData: { gender: "default" },
+      innputsDataForOutputMsg: {},
       invalid: false,
       isFormDataSend: false,
       invalidInputs: ["Imię", "Nazwisko", "PESEL", "Email", "Opis"],
@@ -112,8 +113,18 @@ export default {
           content: "zapisz",
           btnFunction: () => {
             const wrongInputs = document.querySelectorAll(".wrongInput");
-            // console.log(wrongInputs);
+            console.log(wrongInputs);
+            // if (wrongInputs.length == 0 && !this.isFormDataSend ) {
+            //   this.invalidInputs = [
+            //     "Imię",
+            //     "Nazwisko",
+            //     "PESEL",
+            //     "Email",
+            //     "Opis",
+            //   ];
+            // }
             if (wrongInputs.length != 0) {
+              this.invalidInputs = [];
               for (let i = 0; wrongInputs.length > i; i++) {
                 const elName = wrongInputs[i].name;
                 this.invalidInputs.push(this.formInputs[elName].label);
@@ -125,6 +136,7 @@ export default {
             ) {
               this.invalid = true;
             } else {
+              this.innputsDataForOutputMsg = { ...this.inputsData };
               this.isFormDataSend = true;
               this.invalidInputs = [];
               // console.log(this.inputsData);
