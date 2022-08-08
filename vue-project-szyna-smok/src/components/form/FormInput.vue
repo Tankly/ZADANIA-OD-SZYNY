@@ -10,6 +10,7 @@
       @focusout="validateAndSet"
       :disabled="input.disabled"
       :maxlength="input.maxLength"
+      v-bind="input.attributes || {}"
       :class="{ wrongInput: reqMsg }"
     />
     <span :class="{ wrongInputMsg: reqMsg }" v-if="reqMsg">{{ reqMsg }}</span>

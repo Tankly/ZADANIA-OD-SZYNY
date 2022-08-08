@@ -92,7 +92,7 @@ export default {
           name: "details",
           label: "Opis",
           type: "FormTextarea",
-          textArea: [4, 50],
+          attributes: { row: 4, column: 50 },
           placeholder: "Dodaj opis",
           validationF: [this.defaultValidation],
         },
