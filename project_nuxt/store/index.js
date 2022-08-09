@@ -11,7 +11,7 @@ export const mutations = {
 
   REMOVE_TOKEN(state) {
     state.token = null;
-  }
+  },
 };
 
 export const actions = {
@@ -31,5 +31,5 @@ export const actions = {
     this.$axios.setToken(false);
     cookies.remove('x-access-token');
     commit('REMOVE_TOKEN');
-  }
+  },
 };

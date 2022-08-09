@@ -2,12 +2,13 @@
   <v-app>
     <v-main>
         <Nuxt />
+        <Alert />
     </v-main>
   </v-app>
 </template>
 
 <script>
 export default {
-//  middleware: 'unauthenticated'
+  name: 'LoginLayout',
 }
 </script>

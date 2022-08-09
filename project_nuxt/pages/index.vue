@@ -16,6 +16,7 @@
                               label="Login"
                               type="text"
                               placeholder="Login"
+                              autocomplete="username"
                               required
                            ></v-text-field>
                            
@@ -25,15 +26,9 @@
                               label="Hasło"
                               type="password"
                               placeholder="Hasło"
+                              autocomplete="current-password"
                               required
                            ></v-text-field>
-
-                           <v-checkbox
-                              v-model="credentials.remember_me"
-                              label= "Zapamiętaj mnie"
-                              :rules="[v => !!v || 'You must agree to continue!']"
-                              required
-                            ></v-checkbox>
 
                            <v-text-field
                               v-if="isRegister"
@@ -42,8 +37,14 @@
                               label="Confirm Password"
                               type="password"
                               placeholder="cocnfirm password"
+                              autocomplete="current-password"
                               required
                            ></v-text-field>
+                           <v-checkbox
+                              v-model="credentials.remember_me"
+                              label= "Zapamiętaj mnie"
+                              required
+                            ></v-checkbox>
                            <div class="red--text"> {{errorMessage}}</div>
                            <v-btn type="submit" class="mt-4" color="primary" value="log in">{{isRegister ? stateObj.register.name : stateObj.login.name}}</v-btn>
                            <div class="grey--text mt-4" @click="isRegister = !isRegister;">
@@ -70,6 +71,8 @@ export default {
         password: '',
         remember_me: false,
       },
+      alert: false,
+      alertMsg: '',
       confirmPassword: "",
       isRegister : false,
       errorMessage: "",
@@ -91,14 +94,10 @@ export default {
     },
   methods: {
     login() {
-      console.log(this.credentials);
       this.$axios.$post('auth/login', this.credentials)
-      .then(({token, expiresIn}) => {
-        this.$store.dispatch('setToken', {token, expiresIn});
-        this.$router.push({name: 'logged'});
-      })
-      .catch(errors => {
-        // console.dir(errors);
+      .then((data) => {
+        this.$store.dispatch('setToken', { token: data.access_token, expires_in: data.expires_in});
+        this.$router.push({name: 'dashboard'});
       });
     },
     register() {

@@ -6,7 +6,6 @@ export default function ({ store, redirect }) {
   if (! token) {
     store.dispatch('refreshToken')
       .catch(errors => {
-        console.dir(errors);
         store.dispatch('logout');
       });
   }

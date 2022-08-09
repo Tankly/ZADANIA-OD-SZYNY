@@ -15,9 +15,13 @@ module.exports = {
     "vue/singleline-html-element-content-newline": 0,
     "vue/component-name-in-template-casing": ["error", "PascalCase"],
     "no-unused-expressions": "off",
+    semi: 'off',
+    'prefer-const': 'off',
+    'brace-style': 0,
+    'vue/no-v-html': 0,
     eqeqeq: "off",
     "vue/multi-word-component-names": "off",
-    "vue/no-v-html": "off",
+    // "vue/no-v-html": "off",
     "vue/valid-v-slot": [
       "error",
       {
