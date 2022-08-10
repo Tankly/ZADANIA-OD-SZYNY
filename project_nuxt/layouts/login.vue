@@ -10,5 +10,6 @@
 <script>
 export default {
   name: 'LoginLayout',
+  middleware: 'logged',
 }
 </script>

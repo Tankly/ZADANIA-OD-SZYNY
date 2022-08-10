@@ -96,8 +96,9 @@ export default {
     login() {
       this.$axios.$post('auth/login', this.credentials)
       .then((data) => {
-        this.$store.dispatch('setToken', { token: data.access_token, expires_in: data.expires_in});
-        this.$router.push({name: 'dashboard'});
+         this.$store.dispatch('setUser',  data.data);
+         this.$store.dispatch('setToken', { token: data.access_token, expiresIn: data.expires_in});
+         this.$router.push({name: 'dashboard'});
       });
     },
     register() {

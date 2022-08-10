@@ -14,13 +14,22 @@
           :to="item.to"
           router
           exact
-          @click="item.fun || null"
         >
           <v-list-item-action>
             <v-icon>{{ item.icon }}</v-icon>
           </v-list-item-action>
           <v-list-item-content>
             <v-list-item-title v-text="item.title" />
+          </v-list-item-content>
+        </v-list-item>
+        <v-list-item
+          @click="logout.fun"
+        >
+          <v-list-item-action>
+            <v-icon>{{ logout.icon }}</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title v-text="logout.title" />
           </v-list-item-content>
         </v-list-item>
       </v-list>
@@ -76,12 +85,16 @@ export default {
           to: '/inspire',
         },
         {
-          icon: 'mdi-logout',
-          title: 'Wyloguj',
-          to: '/',
-          fun: this.logout
+          icon: 'mdi-format-list-checks',
+          title: 'Todos',
+          to: '/todos',
         },
       ],
+      logout: {
+          icon: 'mdi-logout',
+          title: 'Wyloguj',
+          fun: this.logoutFun
+      },
       miniVariant: false,
       right: true,
       rightDrawer: false,
@@ -89,7 +102,7 @@ export default {
     }
   },
   methods: {
-    logout() {
+    logoutFun() {
       this.$axios.$get('auth/logout')
         .then(resp => {
           this.$store.dispatch('logout');
@@ -99,3 +112,4 @@ export default {
   },
 }
 </script>
+
