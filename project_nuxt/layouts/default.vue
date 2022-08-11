@@ -80,9 +80,9 @@ export default {
           to: '/dashboard',
         },
         {
-          icon: 'mdi-chart-bubble',
-          title: 'Inspire',
-          to: '/inspire',
+          icon: 'mdi-file-send',
+          title: 'Files sender',
+          to: '/filesSender',
         },
         {
           icon: 'mdi-format-list-checks',
