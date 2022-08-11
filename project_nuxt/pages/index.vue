@@ -5,52 +5,52 @@
             <v-layout align-center justify-center>
                <v-flex xs12 sm8 md4>
                   <v-card class="elevation-12">
-                     <v-toolbar dark color="info">
+                     <v-toolbar dark color="primary">
                         <v-toolbar-title>{{isRegister ? stateObj.register.name : stateObj.login.name}}</v-toolbar-title>
                      </v-toolbar>
                      <v-card-text>
-                     <v-form ref="form" @submit.prevent="isRegister ? register() : login()">
-                            <v-text-field
-                              v-model="credentials.login"
-                              name="userLogin"
-                              label="Login"
-                              type="text"
-                              placeholder="Login"
-                              autocomplete="username"
-                              required
-                           ></v-text-field>
-                           
-                            <v-text-field
-                              v-model="credentials.password"
-                              name="password"
-                              label="Hasło"
-                              type="password"
-                              placeholder="Hasło"
-                              autocomplete="current-password"
-                              required
-                           ></v-text-field>
+                        <v-form ref="form" @submit.prevent="isRegister ? register() : login()">
+                              <v-text-field
+                                 v-model="credentials.login"
+                                 name="userLogin"
+                                 label="Login"
+                                 type="text"
+                                 placeholder="Login"
+                                 autocomplete="username"
+                                 required
+                              ></v-text-field>
+                              
+                              <v-text-field
+                                 v-model="credentials.password"
+                                 name="password"
+                                 label="Hasło"
+                                 type="password"
+                                 placeholder="Hasło"
+                                 autocomplete="current-password"
+                                 required
+                              ></v-text-field>
 
-                           <v-text-field
-                              v-if="isRegister"
-                              v-model="confirmPassword"
-                              name="confirmPassword"
-                              label="Confirm Password"
-                              type="password"
-                              placeholder="cocnfirm password"
-                              autocomplete="current-password"
-                              required
-                           ></v-text-field>
-                           <v-checkbox
-                              v-model="credentials.remember_me"
-                              label= "Zapamiętaj mnie"
-                              required
-                            ></v-checkbox>
-                           <div class="red--text"> {{errorMessage}}</div>
-                           <v-btn type="submit" class="mt-4" color="primary" value="log in">{{isRegister ? stateObj.register.name : stateObj.login.name}}</v-btn>
-                           <div class="grey--text mt-4" @click="isRegister = !isRegister;">
-                              {{toggleMessage}}  
-                           </div>
-                      </v-form>
+                              <v-text-field
+                                 v-if="isRegister"
+                                 v-model="confirmPassword"
+                                 name="confirmPassword"
+                                 label="Confirm Password"
+                                 type="password"
+                                 placeholder="cocnfirm password"
+                                 autocomplete="current-password"
+                                 required
+                              ></v-text-field>
+                              <v-checkbox
+                                 v-model="credentials.remember_me"
+                                 label= "Zapamiętaj mnie"
+                                 required
+                              ></v-checkbox>
+                              <div class="red--text"> {{errorMessage}}</div>
+                              <v-btn type="submit" class="mt-4" color="primary" value="log in">{{isRegister ? stateObj.register.name : stateObj.login.name}}</v-btn>
+                              <div class="grey--text mt-4" @click="isRegister = !isRegister;">
+                                 {{toggleMessage}}  
+                              </div>
+                        </v-form>
                      </v-card-text>
                   </v-card>
                </v-flex>
@@ -108,7 +108,7 @@ export default {
           this.$refs.form.reset();
        }
        else {
-         this.errorMessage = "password did not match"
+         this.errorMessage = "Hasła muszą być identyczne"
        }
     }
   }

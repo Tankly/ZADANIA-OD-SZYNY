@@ -6,9 +6,10 @@ const errors = {
 }
 
 export default function ({ $axios, store, redirect }) {
-    $axios.onError(error => {
+    $axios.onError(async error => {
         let msg = "Wewnętrzny błąd serwera"
         if(error.response.status == 401) {
+            let originalRequest = error.config
             msg = "Nieautoryzowany dostęp"
             if(error.response.config.url == "auth/refresh-token"){
                 store.dispatch('logout');
@@ -17,8 +18,9 @@ export default function ({ $axios, store, redirect }) {
                 return Promise.resolve(false);
             }
             if(localStorage.getItem('User')){
-                store.dispatch('refreshToken')
-                return Promise.resolve(false);
+                await store.dispatch('refreshToken')
+                originalRequest.headers.Authorization = 'Bearer ' + store.state.token
+                return $axios(originalRequest);
             }
         } 
         else if(error.response.data.message){

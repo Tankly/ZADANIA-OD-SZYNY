@@ -1,5 +1,7 @@
 export default function ({ store, redirect }) {
-    if (store.state.token) {
+    if (localStorage.getItem('User')) {
+      const userData = JSON.parse(localStorage.getItem("User"))
+      store.dispatch('setUser', userData)
       return redirect('/dashboard');
     }
   }

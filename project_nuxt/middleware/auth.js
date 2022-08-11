@@ -1,5 +1,5 @@
-export default function ({ store, redirect }) {
-    if (!store.state.token) {
+export default function ({ redirect }) {
+    if (!localStorage.getItem('User')) {
       return redirect('/');
     }
   }
