@@ -1,0 +1,13 @@
+.c-file-sender{
+    min-width: 80%;
+    gap: 10px;
+}
+
+.c-file-form-btns{
+    position: fixed;
+    margin-top: 5%;
+}
+
+.c-file-form-btns__btn{
+    margin-bottom: 5px;
+}
