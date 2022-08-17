@@ -1,58 +1,70 @@
 <template>
-   <v-row class="c-file-sender d-flex align-center">
-        <v-file-input
-            v-model="value"
-            chips
-            label="Dodaj plik"
-            @change = "handelFile()"
-        ></v-file-input>
-        <v-btn
-            color="red"
-            outlined
-            small
-            @click = "$emit('removeInput')"
-        >
-            <v-icon>mdi-close</v-icon>
-        </v-btn>
-        <span color="red">
-            
-        </span>
-    </v-row>
+   <div style="display: flex; width: 100%; flex-direction: column;">
+        <div style="display: flex; gap: 10px; align-items: center; width: 100%;">
+            <v-file-input
+                chips
+                :value="value"
+                label="Dodaj plik"
+                @change = "handelFile"
+            />
+            <v-btn
+                color="red"
+                outlined
+                small
+                @click = "$emit('removeInput')"
+            >
+                <v-icon>mdi-close</v-icon>
+            </v-btn>
+        </div>
+        <div>
+            <span v-if="!valid" class="c-file-sender__warning">
+                {{ msg }}
+            </span>
+        </div>
+    </div>
 </template>
 
 <script>
 export default {
     name: "FileInputWithBtns",
-    props:{
-        index: {
-            type: Number,
-            default: Number,
-            required: true,
-        }
-    },
     data() {
         return {
             value: null,
-            i: this.index,
             valid: true,
+            msg: "",
+        }
+    },
+    watch: {
+        valid() {
+            this.$emit("wrongInput", this.valid);
         }
     },
     methods: {
         validType(type){
-            return !type  || "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" || "image/png" || "image/jpeg" || "image/bmp"
+            return !type  || type == "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" || type =="image/png" || type == "image/jpeg" || type == "image/bmp"
         },
         validSize(size){
             return !size || size < 2000000
         },
-        handelFile() {
-            console.log(this.validType(this.value.type));
-            if(this.validType(this.value.type) && this.validSize(this.value.name)) {
-                this.$emit('handleFile', this.value, this.i)
-                this.valid = true;
-            }
-            else {
-                this.value = null;
-                this.valid = false;
+        handelFile(value) {
+            this.msg = "";
+            this.valid = true;
+            if(value){
+                const type = this.validType(value.type);
+                const size = this.validSize(value.size);
+                this.value = value
+                if(type && size) {
+                    this.$emit('handleFile', value)
+                }
+                else {
+                    if(!size){
+                        this.msg += "Podany plik jest zbyt duży. "
+                    }
+                    if(!type){
+                        this.msg += " Niepoprawny typ pliku."
+                    }
+                    this.valid = false;
+                }
             }
         }
     },

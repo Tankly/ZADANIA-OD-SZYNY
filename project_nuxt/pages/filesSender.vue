@@ -2,7 +2,15 @@
   <v-form ref="form" @submit.prevent="sendFiles()">
     <v-row>
       <v-col class="text-center d-flex align-center flex-column" cols="8">
-        <FileInputWithBtns v-for="index in extra" :key="index" :index="index" @handleFile="handleFile" @removeInput="removeInput(index)"/>
+        <FileInputWithBtns 
+          v-for="index in extra"
+          :key="index"
+          @wrongInput="wrongInput"  
+          @handleFile="(value) => {
+            handleFile(value, index)
+          }" 
+          @removeInput="removeInput(index)" 
+        />
       </v-col>
       <v-col cols="4">
         <div class="c-file-form-btns">
@@ -20,6 +28,7 @@
             elevation="13"
             large
             outlined
+            :disabled=!formValid
             type="submit"
           >Wyślij</v-btn>
         </div>
@@ -29,15 +38,14 @@
 </template>
 
 <script>
-import FileInputWithBtns from "../components/fileInputWithBtns.vue";
 export default {
     name: "FilesSender",
-    components: { FileInputWithBtns },
     data() {
         return {
             counter: 2,
             extra: [0, 1],
             files: {},
+            formValid: true,
         };
     },
     methods: {
@@ -48,9 +56,13 @@ export default {
       },
       removeInput(index) {
         this.extra.splice(this.extra.indexOf(index), 1);
+        this.formValid = true;
       },
       handleFile(value, index) {
         this.files[index] = value;
+      },
+      wrongInput(value){
+        this.formValid = value;
       },
       sendFiles() {
         let formData = new FormData();

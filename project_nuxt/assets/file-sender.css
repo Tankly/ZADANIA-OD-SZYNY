@@ -11,3 +11,7 @@
 .c-file-form-btns__btn{
     margin-bottom: 5px;
 }
+
+.c-file-sender__warning{
+    color: red;
+}
