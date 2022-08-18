@@ -1,0 +1,11 @@
+.c-tiptap-btns{
+    gap: 10px;
+    margin-bottom: 5px;
+    padding: 5px;
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.c-tiptap-btns_btn{
+    /* min-width: 20% !important; */
+    /* padding: 5px !important; */
+}
