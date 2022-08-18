@@ -1,6 +1,6 @@
 <template>
     <div>
-        <v-btn class="c-tiptap-btns_btn" :title="btn" :disabled="btn.isDisabled" @click="btn.onClick">
+        <v-btn :class="btn.class" :title="title" :disabled="disabled" @click="btn.onClick">
             <!-- <span class="hidden-sm-and-down">
                 {{ btn }}
             </span> -->
@@ -20,6 +20,21 @@ export default {
             default: Object,
             required: true,
         },
+        title: {
+            type: String,
+            default: String,
+            required: true,
+        },
+        editor: {
+            type: Object,
+            default: Object,
+            required: true,
+        },
+        disabled: {
+            type: Boolean,
+            default: Boolean,
+            required: true,
+        }
     },
 }
 </script>

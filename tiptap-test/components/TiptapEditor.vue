@@ -3,10 +3,13 @@
     class="mx-auto"
     outlined>
   <div v-if="editor" class="d-flex flex-wrap c-tiptap-btns justify-center">
-    <TiptapBtn v-for="btn in Object.keys(btns)" :key="btn" :btn="btns[btn]" />
-    <button :disabled="!editor.can().toggleHeaderRow()" @click="editor.chain().focus().toggleHeaderRow().run()">
+    <v-btn @click="editor.chain().focus().insertTable({ rows: 3, cols: 3, withHeaderRow: true }).run()">
       toggleHeaderRow
-    </button>
+    </v-btn>
+    <TiptapBtn v-for="btn in Object.keys(btns)" :key="btn" :btn="btns[btn]" :title="btn" :disabled="shortcutIsDisabled(btns[btn].name)"  :editor="editor"/>
+    <v-btn :disabled="shortcutIsDisabled(aaa)" @click="editor.chain().focus().toggleHeaderRow().run()">
+      toggleHeaderRow
+    </v-btn>
   </div>
   <EditorContent :editor="editor" />
 </v-card>
@@ -59,6 +62,7 @@ export default {
     return {
       editor: null,
       btns: null,
+      aaa: "toggleHeaderRow",
     }
   },
 
@@ -105,129 +109,141 @@ export default {
     this.btns = {
         insertTable: {
           onClick: () => {this.shortcutOnClick("insertTable", ({ rows: 3, cols: 3, withHeaderRow: true }))},
+          name: "addColumnBefore",
           icon: "mdi-table-plus",
         },
         addColumnBefore: {
           onClick: () => {this.shortcutOnClick("addColumnBefore")},
-          isDisabled: this.shortcutIsDisabled("addColumnBefore"),
+          // isDisabled: this.shortcutIsDisabled("addColumnBefore"),
+          // isDisabled: !this.editor.can().addColumnBefore(),
+          name: "addColumnBefore",
           icon: "mdi-table-column-plus-before",
         },
-        addColumnAfter: {
-          onClick: () => {this.shortcutOnClick("addColumnAfter")},
-          isDisabled: this.shortcutIsDisabled("addColumnAfter"),
-          icon: "mdi-table-column-plus-after",
-        },
-        deleteColumn: {
-          onClick: () => {this.shortcutOnClick("deleteColumn")},
-          isDisabled: this.shortcutIsDisabled("deleteColumn"),
-          icon: "mdi-table-column-remove",
-        },
-        addRowBefore: {
-          onClick: () => {this.shortcutOnClick("addRowBefore")},
-          isDisabled: this.shortcutIsDisabled("addRowBefore"),
-          icon: "mdi-table-row-plus-before",
-        },
-        addRowAfter: {
-          onClick: () => {this.shortcutOnClick("addRowAfter")},
-          isDisabled: this.shortcutIsDisabled("addRowAfter"),
-          icon: "mdi-table-row-plus-after",
-        },
-        deleteRow: {
-          onClick: () => {this.shortcutOnClick("deleteRow")},
-          isDisabled: this.shortcutIsDisabled("deleteRow"),
-          icon: "mdi-table-row-remove",
-        },
-        deleteTable: {
-          onClick: () => {this.shortcutOnClick("deleteTable")},
-          isDisabled: this.shortcutIsDisabled("deleteTable"),
-          icon: "mdi-table-remove",
-        },
-        mergeCells: {
-          onClick: () => {this.shortcutOnClick("mergeCells")},
-          isDisabled: this.shortcutIsDisabled("mergeCells"),
-          icon: "mdi-table-merge-cells",
-        },
-        splitCell: {
-          onClick: () => {this.shortcutOnClick("splitCell")},
-          isDisabled: this.shortcutIsDisabled("splitCell"),
-          icon: "mdi-table-split-cell",
-        },
-        toggleHeaderColumn: {
-          onClick: () => {this.shortcutOnClick("toggleHeaderColumn")},
-          isDisabled: this.shortcutIsDisabled("toggleHeaderColumn"),
-          icon: "mdi-tag-arrow-left",
-        },
-        toggleHeaderRow: {
-          onClick: () => {this.shortcutOnClick("toggleHeaderRow")},
-          isDisabled: this.shortcutIsDisabled("toggleHeaderRow"),
-          icon: "mdi-tag-arrow-up",
-        },
-        toggleHeaderCell: {
-          onClick: () => {this.shortcutOnClick("toggleHeaderCell")},
-          isDisabled: this.shortcutIsDisabled("toggleHeaderCell"),
-          icon: "mdi-tag",
-        },
-        mergeOrSplit: {
-          onClick: () => {this.shortcutOnClick("mergeOrSplit")},
-          isDisabled: this.shortcutIsDisabled("mergeOrSplit"),
-          icon: "mdi-set-all",
-        },
-        setCellAttribute: {
-          onClick: () => {this.editor.chain().focus().setCellAttribute('backgroundColor', '#FAF594').run()},
-          isDisabled: !this.editor.can().setCellAttribute('backgroundColor', '#FAF594'),
-          icon: "mdi-table-eye",
-        },
-        fixTables: {
-          onClick: () => {this.shortcutOnClick("fixTables")},
-          isDisabled: this.shortcutIsDisabled("fixTables"),
-          icon: "mdi-table-cog",
-        },
-        goToPreviousCell: {
-          onClick: () => {this.shortcutOnClick("goToPreviousCell")},
-          isDisabled: this.shortcutIsDisabled("goToPreviousCell"),
-          icon: "mdi-arrow-left",
-        },
-        goToNextCell: {
-          onClick: () => {this.shortcutOnClick("goToNextCell")},
-          isDisabled: this.shortcutIsDisabled("goToNextCell"),
-          icon: "mdi-arrow-right",
-        },
-        setTextAlignLeft: {
-          onClick: () => {this.shortcutOnClick("setTextAlign","left")},
-          icon: "mdi-format-align-left",
-        },
-        setTextAlignCenter: {
-          onClick: () => {this.shortcutOnClick("setTextAlign","center")},
-          icon: "mdi-format-align-center",
-        },
-        setTextAlignRight: {
-          onClick: () => {this.shortcutOnClick("setTextAlign","right")},
-          icon: "mdi-format-align-right",
-        },
-        setTextAlignJustify: {
-          onClick: () => {this.shortcutOnClick("setTextAlign","justify")},
-          icon: "mdi-format-align-justify",
-        },
-        toggleHighlight: {
-          onClick: () => {this.shortcutOnClick("toggleHighlight")},
-          icon: "mdi-format-color-highlight",
-        },
-        toggleStrike: {
-          onClick: () => {this.shortcutOnClick("toggleStrike")},
-          icon: "mdi-format-strikethrough",
-        },
-        toggleItalic: {
-          onClick: () => {this.shortcutOnClick("toggleItalic")},
-          icon: "mdi-format-italic",
-        },
-        toggleBold: {
-          onClick: () => {this.shortcutOnClick("toggleBold")},
-          icon: "mdi-format-bold",
-        },
-        setParagraph: {
-          onClick: () => {this.shortcutOnClick("setParagraph")},
-          icon: "mdi-format-paragraph",
-        },
+        // addColumnAfter: {
+        //   onClick: () => {this.shortcutOnClick("addColumnAfter")},
+        //   isDisabled: this.shortcutIsDisabled("addColumnAfter"),
+        //   icon: "mdi-table-column-plus-after",
+        // },
+        // deleteColumn: {
+        //   onClick: () => {this.shortcutOnClick("deleteColumn")},
+        //   isDisabled: this.shortcutIsDisabled("deleteColumn"),
+        //   icon: "mdi-table-column-remove",
+        // },
+        // addRowBefore: {
+        //   onClick: () => {this.shortcutOnClick("addRowBefore")},
+        //   isDisabled: this.shortcutIsDisabled("addRowBefore"),
+        //   icon: "mdi-table-row-plus-before",
+        // },
+        // addRowAfter: {
+        //   onClick: () => {this.shortcutOnClick("addRowAfter")},
+        //   isDisabled: this.shortcutIsDisabled("addRowAfter"),
+        //   icon: "mdi-table-row-plus-after",
+        // },
+        // deleteRow: {
+        //   onClick: () => {this.shortcutOnClick("deleteRow")},
+        //   isDisabled: this.shortcutIsDisabled("deleteRow"),
+        //   icon: "mdi-table-row-remove",
+        // },
+        // deleteTable: {
+        //   onClick: () => {this.shortcutOnClick("deleteTable")},
+        //   isDisabled: this.shortcutIsDisabled("deleteTable"),
+        //   icon: "mdi-table-remove",
+        // },
+        // mergeCells: {
+        //   onClick: () => {this.shortcutOnClick("mergeCells")},
+        //   isDisabled: this.shortcutIsDisabled("mergeCells"),
+        //   icon: "mdi-table-merge-cells",
+        // },
+        // splitCell: {
+        //   onClick: () => {this.shortcutOnClick("splitCell")},
+        //   isDisabled: this.shortcutIsDisabled("splitCell"),
+        //   icon: "mdi-table-split-cell",
+        // },
+        // toggleHeaderColumn: {
+        //   onClick: () => {this.shortcutOnClick("toggleHeaderColumn")},
+        //   isDisabled: this.shortcutIsDisabled("toggleHeaderColumn"),
+        //   icon: "mdi-tag-arrow-left",
+        // },
+        // toggleHeaderRow: {
+        //   onClick: () => {this.shortcutOnClick("toggleHeaderRow")},
+        //   isDisabled: this.shortcutIsDisabled("toggleHeaderRow"),
+        //   icon: "mdi-tag-arrow-up",
+        // },
+        // toggleHeaderCell: {
+        //   onClick: () => {this.shortcutOnClick("toggleHeaderCell")},
+        //   isDisabled: this.shortcutIsDisabled("toggleHeaderCell"),
+        //   icon: "mdi-tag",
+        // },
+        // mergeOrSplit: {
+        //   onClick: () => {this.shortcutOnClick("mergeOrSplit")},
+        //   isDisabled: this.shortcutIsDisabled("mergeOrSplit"),
+        //   icon: "mdi-set-all",
+        // },
+        // setCellAttribute: {
+        //   onClick: () => {this.editor.chain().focus().setCellAttribute('backgroundColor', '#FAF594').run()},
+        //   isDisabled: !this.editor.can().setCellAttribute('backgroundColor', '#FAF594'),
+        //   icon: "mdi-table-eye",
+        // },
+        // fixTables: {
+        //   onClick: () => {this.shortcutOnClick("fixTables")},
+        //   isDisabled: this.shortcutIsDisabled("fixTables"),
+        //   icon: "mdi-table-cog",
+        // },
+        // goToPreviousCell: {
+        //   onClick: () => {this.shortcutOnClick("goToPreviousCell")},
+        //   isDisabled: this.shortcutIsDisabled("goToPreviousCell"),
+        //   icon: "mdi-arrow-left",
+        // },
+        // goToNextCell: {
+        //   onClick: () => {this.shortcutOnClick("goToNextCell")},
+        //   isDisabled: this.shortcutIsDisabled("goToNextCell"),
+        //   icon: "mdi-arrow-right",
+        // },
+        // setTextAlignLeft: {
+        //   onClick: () => {this.shortcutOnClick("setTextAlign","left")},
+        //   icon: "mdi-format-align-left",
+        //   class: { 'is-active': this.editor.isActive({ textAlign: 'left' }) },
+        // },
+        // setTextAlignCenter: {
+        //   onClick: () => {this.shortcutOnClick("setTextAlign","center")},
+        //   icon: "mdi-format-align-center",
+        //   class: { 'is-active': this.editor.isActive({ textAlign: 'center' }) },
+        // },
+        // setTextAlignRight: {
+        //   onClick: () => {this.shortcutOnClick("setTextAlign","right")},
+        //   icon: "mdi-format-align-right",
+        //   class: { 'is-active': this.editor.isActive({ textAlign: 'right' }) },
+        // },
+        // setTextAlignJustify: {
+        //   onClick: () => {this.shortcutOnClick("setTextAlign","justify")},
+        //   icon: "mdi-format-align-justify",
+        //   class: { 'is-active': this.editor.isActive({ textAlign: 'justify' }) },
+        // },
+        // toggleHighlight: {
+        //   onClick: () => {this.shortcutOnClick("toggleHighlight")},
+        //   icon: "mdi-format-color-highlight",
+        //   class: { 'is-active': this.editor.isActive('highlight') },
+        // },
+        // toggleStrike: {
+        //   onClick: () => {this.shortcutOnClick("toggleStrike")},
+        //   icon: "mdi-format-strikethrough",
+        //   class: { 'is-active': this.editor.isActive('strike') },
+        // },
+        // toggleItalic: {
+        //   onClick: () => {this.shortcutOnClick("toggleItalic")},
+        //   icon: "mdi-format-italic",
+        //   class: { 'is-active': this.editor.isActive('italic') },
+        // },
+        // toggleBold: {
+        //   onClick: () => {this.shortcutOnClick("toggleBold")},
+        //   icon: "mdi-format-bold",
+        //   class: { 'is-active': this.editor.isActive('bold') },
+        // },
+        // setParagraph: {
+        //   onClick: () => {this.shortcutOnClick("setParagraph")},
+        //   icon: "mdi-format-paragraph",
+        //   class: { 'is-active': this.editor.isActive('paragraph') },
+        // },
 
       }
   },
