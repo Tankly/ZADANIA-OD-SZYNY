@@ -1,17 +1,18 @@
 <template>
     <div>
-        <v-btn :class="btn.class" :title="title" :disabled="disabled" @click="btn.onClick">
+        <v-btn :class="btn.class" :title="title" :disabled="disabled" icon @click="btn.onClick">
             <!-- <span class="hidden-sm-and-down">
                 {{ btn }}
             </span> -->
             <v-icon>
                 {{ btn.icon }}
-          </v-icon>
+            </v-icon>
         </v-btn>
     </div>
 </template>
 
 <script>
+
 export default {
     name: "TiptapBtn",
     props: {
