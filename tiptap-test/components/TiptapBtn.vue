@@ -1,6 +1,6 @@
 <template>
     <div>
-        <v-btn :class="btn.class" :title="title" :disabled="disabled" icon @click="btn.onClick">
+        <v-btn :class="btn.class" :title="title" :disabled="shortcutIsDisabled" icon @click="btn.onClick">
             <!-- <span class="hidden-sm-and-down">
                 {{ btn }}
             </span> -->
@@ -18,23 +18,23 @@ export default {
     props: {
         btn: {
             type: Object,
-            default: Object,
+            default: () => {},
             required: true,
         },
         title: {
             type: String,
-            default: String,
+            default: "",
             required: true,
         },
         editor: {
             type: Object,
-            default: Object,
+            default: () => {},
             required: true,
-        },
-        disabled: {
-            type: Boolean,
-            default: Boolean,
-            required: true,
+        },  
+    },
+    computed: {
+    shortcutIsDisabled(){
+            return !this.editor.can()[this.title]()
         }
     },
 }

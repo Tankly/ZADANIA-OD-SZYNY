@@ -17,7 +17,7 @@
             </v-btn>
         </div>
         <div>
-            <span v-if="!valid" class="c-file-sender__warning">
+            <span v-if="!v" class="c-file-sender__warning">
                 {{ msg }}
             </span>
         </div>
@@ -27,18 +27,33 @@
 <script>
 export default {
     name: "FileInputWithBtns",
+    props:{
+        valid: {
+            type:Boolean,
+        }
+    },
     data() {
         return {
             value: null,
-            valid: true,
+            // valid: true,
             msg: "",
         }
     },
-    watch: {
-        valid() {
-            this.$emit("wrongInput", this.valid);
+    computed: {
+        v: {
+            get(){
+                return this.valid
+            },
+            set(value){
+               this.$emit("update:valid", value); 
+            }
         }
     },
+    // watch: {
+    //     valid() {
+    //         this.$emit("wrongInput", this.valid);
+    //     }
+    // },
     methods: {
         validType(type){
             return !type  || type == "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" || type =="image/png" || type == "image/jpeg" || type == "image/bmp"
@@ -48,7 +63,7 @@ export default {
         },
         handelFile(value) {
             this.msg = "";
-            this.valid = true;
+            this.v = true;
             if(value){
                 const type = this.validType(value.type);
                 const size = this.validSize(value.size);
@@ -63,7 +78,7 @@ export default {
                     if(!type){
                         this.msg += " Niepoprawny typ pliku."
                     }
-                    this.valid = false;
+                    this.v = false;
                 }
             }
         }

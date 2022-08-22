@@ -5,7 +5,7 @@
         <FileInputWithBtns 
           v-for="index in extra"
           :key="index"
-          @wrongInput="wrongInput"  
+          :valid.sync="formValid"
           @handleFile="(value) => {
             handleFile(value, index)
           }" 
