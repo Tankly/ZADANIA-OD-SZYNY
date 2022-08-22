@@ -7,7 +7,7 @@
                 dense
                 multiple
                 class="d-flex flex-wrap  justify-center c-tiptap-btns">
-                <BtnsWithClassIsActive v-for="btn in btnsWithClassIsActive" :key="btn.name" :btn="btn" :editor="editor"/>
+                <BtnsWithClassIsActive v-for="btn in btnsWithClassIsActive" :key="btn.name" :btn="btn" :editor="editor" :fun="shortcutOnClick"/>
                 <v-menu absolute offset-y :close-on-click="true">
                     <template #activator="{ on, attrs }">
                         <v-btn icon tile v-bind="attrs" v-on="on">
@@ -16,11 +16,11 @@
                     </template>
                     <v-list class="d-flex">
                         <v-list-item v-for="btn in headingsBtns" :key="btn.level" >
-                            <HeadingsBtns :btn="btn" :editor="editor"/>
+                            <HeadingsBtns :btn="btn" :editor="editor" :fun="shortcutOnClick"/>
                         </v-list-item>
                     </v-list>
                 </v-menu>
-                <JustBtn v-for="btn in justBtns" :key="btn.name" :btn="btn" :editor="editor"/>
+                <JustBtn v-for="btn in justBtns" :key="btn.name" :btn="btn" :editor="editor" :fun="shortcutOnClick"/>
                 <v-menu absolute offset-y :close-on-click="true">
                     <template #activator="{ on, attrs }">
                         <v-btn icon tile v-bind="attrs" v-on="on">
@@ -29,7 +29,7 @@
                     </template>
                     <v-list class="d-flex">
                         <v-list-item v-for="btn in btnsToEditTable" :key="btn.name">
-                            <BtnToEditTable :btn="btn" :editor="editor"/>
+                            <BtnToEditTable :btn="btn" :editor="editor" :fun="shortcutOnClick"/>
                         </v-list-item>
                     </v-list>
                 </v-menu>
@@ -49,6 +49,7 @@ import { Highlight } from '@tiptap/extension-highlight'
 import { TextAlign } from '@tiptap/extension-text-align'
 import { Editor, EditorContent } from '@tiptap/vue-2'
 import StarterKit from '@tiptap/starter-kit'
+// import { justBtns, btnsToEditTable, btnsWithClassIsActive, headingsBtns } from './_editorData'
 
 const CustomTableCell = TableCell.extend({
   addAttributes() {
@@ -86,6 +87,7 @@ export default {
     data(){
         return {
             editor: null,
+            
             justBtns: {
                 setHorizontalRule: {
                     icon: "mdi-minus",
@@ -316,9 +318,6 @@ export default {
     methods: {
         shortcutOnClick(fnName, option) {
             this.editor.chain().focus()[fnName](option).run()
-        },
-        shortcutIsDisabled(fnName){
-            !this.editor.can()[fnName]()
         },
     }
     

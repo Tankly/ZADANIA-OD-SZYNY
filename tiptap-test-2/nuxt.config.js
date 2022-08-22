@@ -27,7 +27,12 @@ export default {
   plugins: [],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
-  components: true,
+  components: [
+    // Equivalent to { path: '~/components' }
+    '~/components',
+    { path: '~/components/ButtonsForEditor', extensions: ['vue'] },
+    { path: '~/components/Editor', extensions: ['vue'] },
+  ],
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [

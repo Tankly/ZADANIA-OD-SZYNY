@@ -9,12 +9,9 @@
 </template>
 
 <script>
-import Editor from '~/components/PiniaEditor.vue'
+
 
 export default {
-    components: {
-        Editor,
-    },
     data() {
       return {
         content: '<p>A Vue.js wrapper component for tiptap to use v-model.</p>',
