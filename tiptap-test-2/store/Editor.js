@@ -1,10 +1,10 @@
 import { defineStore } from "pinia";
-import Table from '@tiptap/extension-table'
-import TableCell from '@tiptap/extension-table-cell'
-import TableHeader from '@tiptap/extension-table-header'
-import TableRow from '@tiptap/extension-table-row'
-import Highlight from '@tiptap/extension-highlight'
-import TextAlign from '@tiptap/extension-text-align'
+import { Table } from '@tiptap/extension-table'
+import { TableCell } from '@tiptap/extension-table-cell'
+import { TableHeader } from '@tiptap/extension-table-header'
+import { TableRow } from '@tiptap/extension-table-row'
+import { Highlight } from '@tiptap/extension-highlight'
+import { TextAlign } from '@tiptap/extension-text-align'
 import { Editor } from '@tiptap/vue-2'
 import StarterKit from '@tiptap/starter-kit'
 
@@ -12,6 +12,7 @@ export const useEditorStore = defineStore("EditorStore", {
     state: () =>{
         return {
             editor: null,
+            content: null,
         }
     },
     actions:{
@@ -53,12 +54,24 @@ export const useEditorStore = defineStore("EditorStore", {
                 ],
                 onUpdate: () => {
                   // HTML
-                  this.$emit('input', this.editor.getHTML())
+                  this.content = this.editor.getHTML();
+                  // this.$emit('input', this.editor.getHTML());
+                  // window.addEventListener('input', this.editor)
           
                   // JSON
                   // this.$emit('input', this.editor.getJSON())
                 },
             })
+        },
+        clearEditor(){
+          this.editor = null;
+          this.content = null;
+        },
+        shortcutOnClick(fnName, option){
+          this.editor.chain().focus()[fnName](option).run()
+        },
+        shortcutIsDisabled(fnName){
+          !this.editor.can()[fnName]()
         }
     }
 })

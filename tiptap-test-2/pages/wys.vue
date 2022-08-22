@@ -1,27 +1,25 @@
 <template>
   <div>
     <Editor v-model="content" />
-
-    <div class="content">
-      <h3>Content</h3>
-      <pre><code>{{ content }}</code></pre>
-    </div>
+      <div class="content">
+        <h3>Content</h3>
+        <pre><code>{{ content }}</code></pre>
+      </div>
   </div>
 </template>
 
 <script>
-import Editor from '~/components/TiptapEditor.vue'
-
+import Editor from '~/components/PiniaEditor.vue'
 
 export default {
-  components: {
-    Editor,
-  },
-  data() {
-    return {
-      content: '<p>A Vue.js wrapper component for tiptap to use v-model.</p>',
-    }
-  },
+    components: {
+        Editor,
+    },
+    data() {
+      return {
+        content: '<p>A Vue.js wrapper component for tiptap to use v-model.</p>',
+      }
+    },
 }
 </script>
 
