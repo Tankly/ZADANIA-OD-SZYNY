@@ -181,3 +181,37 @@ export const headingsBtns = [
         level: 6,
     },
 ]
+
+export const alignBtns = [
+    {
+        icon: "mdi-format-align-left",
+        title: "Wyrównaj do lewej",
+        name: "setTextAlign",
+        class: "left",
+    },
+    {
+        icon: "mdi-format-align-center",
+        title: "Wyśrodkuj",
+        name: "setTextAlign",
+        class: "center",
+    },
+    {
+        icon: "mdi-format-align-right",
+        title: "Wyrównaj do prawej",
+        name: "setTextAlign",
+        class: "right",
+    },
+    {
+        icon: "mdi-format-align-justify",
+        title: "Wyjustuj",
+        name: "setTextAlign",
+        class: "justify",
+    },
+]
+
+export default {
+    justBtns,
+    btnsToEditTable,
+    btnsWithClassIsActive,
+    headingsBtns,
+}

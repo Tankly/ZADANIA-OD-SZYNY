@@ -7,29 +7,30 @@
                 dense
                 multiple
                 class="d-flex flex-wrap  justify-center c-tiptap-btns">
-                <BtnsWithClassIsActive v-for="btn in btnsWithClassIsActive" :key="btn.name" :btn="btn" :editor="editor" :fun="shortcutOnClick"/>
+                <BtnWithClassIsActive v-for="btn in btnsWithClassIsActive" :key="btn.name" :btn="btn" :editor="editor"/>
+                <AlignBtn v-for="btn in alignBtns" :key="btn.class" :btn="btn" :editor="editor"/>
                 <v-menu absolute offset-y :close-on-click="true">
                     <template #activator="{ on, attrs }">
-                        <v-btn icon tile v-bind="attrs" v-on="on">
+                        <v-btn icon tile v-bind="attrs" title="Nagłówki" v-on="on">
                             <v-icon>mdi-format-header-pound</v-icon>
                         </v-btn>
                     </template>
                     <v-list class="d-flex">
                         <v-list-item v-for="btn in headingsBtns" :key="btn.level" >
-                            <HeadingsBtns :btn="btn" :editor="editor" :fun="shortcutOnClick"/>
+                            <HeadingsBtn :btn="btn" :editor="editor"/>
                         </v-list-item>
                     </v-list>
                 </v-menu>
-                <JustBtn v-for="btn in justBtns" :key="btn.name" :btn="btn" :editor="editor" :fun="shortcutOnClick"/>
+                <JustBtn v-for="btn in justBtns" :key="btn.name" :btn="btn" :editor="editor"/>
                 <v-menu absolute offset-y :close-on-click="true">
                     <template #activator="{ on, attrs }">
-                        <v-btn icon tile v-bind="attrs" v-on="on">
+                        <v-btn icon tile v-bind="attrs" title="Edycja tabel" v-on="on">
                             <v-icon>mdi-table-cog</v-icon>
                         </v-btn>
                     </template>
                     <v-list class="d-flex">
                         <v-list-item v-for="btn in btnsToEditTable" :key="btn.name">
-                            <BtnToEditTable :btn="btn" :editor="editor" :fun="shortcutOnClick"/>
+                            <BtnToEditTable :btn="btn" :editor="editor"/>
                         </v-list-item>
                     </v-list>
                 </v-menu>
@@ -49,7 +50,7 @@ import { Highlight } from '@tiptap/extension-highlight'
 import { TextAlign } from '@tiptap/extension-text-align'
 import { Editor, EditorContent } from '@tiptap/vue-2'
 import StarterKit from '@tiptap/starter-kit'
-import { justBtns, btnsToEditTable, btnsWithClassIsActive, headingsBtns } from './_editorData'
+import { justBtns, btnsToEditTable, btnsWithClassIsActive, headingsBtns, alignBtns } from './_editorData'
 
 const CustomTableCell = TableCell.extend({
   addAttributes() {
@@ -91,6 +92,7 @@ export default {
             btnsToEditTable,
             btnsWithClassIsActive,
             headingsBtns,
+            alignBtns,
         }
     },
 
@@ -107,9 +109,9 @@ export default {
             }
 
             this.editor.commands.setContent(value, false)
-            },
+        },
     },
-    mounted() {
+    beforeMount() {
         this.editor = new Editor({
             content: this.value,
             extensions: [
